@@ -4,7 +4,7 @@
   "description": "TruckIt frontend server",
   "main": "truckit-frontend.js",
   "scripts": {
-    "test": "npm install && node truckit-frontend.js"
+    "dev": "npm install && node truckit-frontend.js"
   },
   "repository": {
     "type": "git",
