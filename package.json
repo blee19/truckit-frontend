@@ -29,5 +29,8 @@
     "request": "^2.79.0",
     "serve-favicon": "^2.3.2",
     "uglify": "^0.1.5"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5"
   }
 }
