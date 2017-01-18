@@ -1,0 +1,33 @@
+{
+  "name": "truckit-frontend",
+  "version": "1.0.0",
+  "description": "TruckIt frontend server",
+  "main": "truckit-frontend.js",
+  "scripts": {
+    "test": "npm install && node truckit-frontend.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blee19/truckit-frontend.git"
+  },
+  "author": "Brandon Ivraj Catherine Ethan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blee19/truckit-frontend/issues"
+  },
+  "homepage": "https://github.com/blee19/truckit-frontend#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-stylus": "^1.2.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "morgan": "^1.7.0",
+    "pug": "^2.0.0-beta6",
+    "request": "^2.79.0",
+    "serve-favicon": "^2.3.2",
+    "uglify": "^0.1.5"
+  }
+}
