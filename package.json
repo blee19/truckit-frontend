@@ -18,6 +18,7 @@
   "homepage": "https://github.com/blee19/truckit-frontend#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
+    "bootstrap": "^3.3.7",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "grunt": "^1.0.1",
