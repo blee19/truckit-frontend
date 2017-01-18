@@ -4,7 +4,7 @@
   "description": "TruckIt frontend server",
   "main": "truckit-frontend.js",
   "scripts": {
-    "dev": "grunt && node truckit-frontend.js"
+    "dev": "grunt & node truckit-frontend.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "grunt-contrib-stylus": "^1.2.0",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
+    "jquery": "^3.1.1",
     "morgan": "^1.7.0",
     "pug": "^2.0.0-beta6",
     "request": "^2.79.0",
@@ -32,6 +33,6 @@
     "uglify": "^0.1.5"
   },
   "devDependencies": {
-    "grunt": "^0.4.5"
+    "grunt": "~0.4.0"
   }
 }
