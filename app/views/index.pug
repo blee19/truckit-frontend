@@ -2,7 +2,7 @@ extends template
 
 block content
     <!-- Navbar -->
-    nav(class='navbar navbar-toggleable-md navbar-inverse' id='navbar')
+    nav(class='navbar navbar-toggleable-md navbar-inverse success' id='navbar')
         a(class='navbar-left' href='#')
             img(src= 'TruckItLogo.PNG' width='100' height=''  alt='')
         a(class='navbar-brand' href='#') Truck It!
@@ -73,7 +73,7 @@ block content
                     div(class="modal-body")
                         div(class="row")
                             div(class="well")
-                                form(id="loginForm" method="POST" action="/user" novalidate="novalidate")
+                                form(id="loginForm")
                                     div(class="form-group")
                                         label(for="email" class="control-label") Email
                                         input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
@@ -89,7 +89,7 @@ block content
                                         label
                                             <input type="checkbox" name="remember" id="remember"> Remember login
                                         p(class="help-block") (if this is a private device)
-                                    button(type="submit" class="btn btn-success btn-block") Login
+                                    button(type="submit" class="btn btn-success btn-block" onclick='login()') Login
 
 
     <!-- jumbotron-->

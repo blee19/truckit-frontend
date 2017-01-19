@@ -1,19 +1,10 @@
 var modal = document.getElementsByClassName('modal')[0];
-var register = document.getElementById('register-modal');
-var login = document.getElementById('login-modal');
 var jumbotron = document.getElementsByClassName('jumbotron');
 var form = document.forms[0];
 var activeTrucks = [];
 
-register.hide();
-
-document.body.onclick = function(e) {
-	if (e.target === modal)
-		modal.style.display = '';
-}
-
 function login() {
-	var form = document.forms[0];
+	var form = document.forms[1];
 	displayError('');
 	var emptyFields = checkRequired(form);
 	if (emptyFields.length)
@@ -22,7 +13,6 @@ function login() {
 		email: form.email.value,
 		password: form.password.value
 	};
-	
 	fetch('/login', {
 		headers: { 'Content-Type': 'application/json' },
 		method: 'POST',
@@ -42,7 +32,7 @@ function loginSuccess(res) {
 
 function loginInit(info) {
 	var navbar = document.getElementById('navbar').childNodes[0];
-	
+
 	// greet
 	if (info.firstName || info.email) {
 		var greeting = document.createElement('div');
@@ -62,7 +52,7 @@ function loginInit(info) {
 		}
 		navbar.insertBefore(greeting, navbar.firstChild);
 	}
-	
+
 	// replace register/login with logout
 	for (var i = 0; i < navbar.childNodes.length; i++) {
 		var c = navbar.childNodes[i];
@@ -97,7 +87,7 @@ function register() {
 	}
 	if (errorMessage)
 		return displayError(errorMessage.substr(6));
-	
+
 	fetch('/register', {
 		headers: {
 			'Content-Type': 'application/json'
@@ -321,7 +311,7 @@ function populatePendingPage(pending) {
 function adminErrorHandler(err, target) {
 	if (err.status && err.status >= 400 && err.status < 500)
 		return window.location = '/';
-	
+
 	var error = document.createElement('h2');
 	error.setAttribute('class', 'error center');
 	error.innerHTML = 'Error fetching data';
@@ -340,7 +330,7 @@ function submitItem() {
 	if (emptyFields.length)
 		return emptyFields.forEach(error);
 	var data = getFormData(form);
-	
+
 	if (!data.id) {
 		fetch('/admin/items', {
 			headers: headers(),
@@ -436,7 +426,7 @@ function buy(id, quantity) {
 		return modal.style.display = 'block';
 	quantity = quantity || 1;
 	console.log(id);
-	
+
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
@@ -474,7 +464,7 @@ function renderIndex(){
     if(!localStorage.token) renderIndex();
     fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
         .then(function(res) {
-            if (!res.ok) return 
+            if (!res.ok) return
                 //return adminErrorHandler(res, document.getElementById('items'));
             res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
         }).catch(adminErrorHandler);
@@ -505,4 +495,3 @@ function renderMenu(truckId){
         }).catch(adminErrorHandler);
     register.show();
 }
-
