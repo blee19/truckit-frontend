@@ -2,7 +2,7 @@ const router = require('express').Router();
 const request = require('request');
 const config = require('../app/models/config');
 
-router.post('/', (req, res, next) => {
+router.get('/', (req, res, next) => {
     request.get(config.apiUrl + '/trucks', (err, response, body) => {
         if (!err && response.statusCode == 200)
             return response.render('index', {trucks: JSON.parse(body)});
@@ -13,14 +13,6 @@ router.post('/', (req, res, next) => {
 
 router.post('/login', (req, res, next) => {
     request.post(config.apiUrl + '/auth/token', { form: req.body }).pipe(res);
-});
-
-router.get('/logout', (req, res, next) => {
-    return res.render('logout');
-});
-
-router.get('/register', (req, res, next) => {
-    return res.render('register');
 });
 
 router.post('/register', (req, res, next) => {
@@ -68,8 +60,8 @@ router.get('/admin/getpending', (req, res, next) => {
     }).pipe(res);
 });
 
-router.get('/getMenu', (req, res, next) => {
-    request.post(config.apiUrl + '/trucks/'+ { form: req.body }).pipe(res);
+router.get('/getActiveTrucks', (req, res, next) => {
+    request.post(config.apiUrl + '/trucks/').pipe(res);
 });
 
 module.exports = router;
