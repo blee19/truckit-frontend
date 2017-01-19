@@ -461,7 +461,6 @@ function hideModal() { modal.style.display = ''; }
 // Rendering
 // ==========================================================
 function renderIndex(){
-    if(!localStorage.token) renderIndex();
     fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
         .then(function(res) {
             if (!res.ok) return
