@@ -8,117 +8,91 @@ block content
         a(class='navbar-brand' href='#') Truck It!
 
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg navbar-right navbar-btn" data-toggle="modal" data-target="#register-modal">Register</button>
+        button(type="button" class="btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
+        button(type="button" class="btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#register-modal") Register
 
-        //-//////////////////////////////////////////////////////////////////////////////////////////////////
-<!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
-          <div id="register-modal" class="modal fade" aria-hidden='true'>
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Register just once and you're set!</h4>
-                  </div>
-                  <div class="modal-body">
-                      <div class="row">
-                              <div class="well">
-                                  <form id="registerForm" method="POST" action="/user" novalidate="novalidate">
-                                      <div class="form-group">
-                                          <label for="firstName" class="control-label">First Name</label>
-                                          <input type="text" class="form-control" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David">
+        div(class="container")
+          <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+          div(id="register-modal" class="modal fade" aria-hidden='true')
+              div(class="modal-content")
+                  div(class="modal-header")
+                      button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                      h4(class="modal-title" id="myModalLabel") Register just once and you're set!
+                  div(class="modal-body")
+                      div(class="row")
+                              div(class="well")
+                                  form(id="registerForm" method="POST" action="/user" novalidate="novalidate")
+                                      div(class="form-group")
+                                          label(for="firstName" class="control-label") First Name
+                                          input(type="text" class="form-control" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David")
                                           <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="lastName" class="control-label">Last Name</label>
-                                          <input type="text" class="form-control" id="lastName" name="lastName" value="" required="" title="Please enter your last name" placeholder="Malan">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="email" class="control-label">Email</label>
-                                          <input type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="password" class="control-label">Password</label>
-                                          <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="repassword" class="control-label">Re-enter Password</label>
-                                          <input type="password" class="form-control" id="repassword" name="repassword" value="" required="" title="Please re-enter your password">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="phone" class="control-label">Phone Number</label>
-                                          <input type="text" class="form-control" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="phoneProvider" class="control-label">Your Phone Provider</label>
-                                          <input type="text" class="form-control" id="phoneProvider" name="phoneProvider" value="" required="" title="Please enter your Phone Provider">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <label for="venmo" class="control-label">Your Venmo name</label>
-                                          <input type="text" class="form-control" id="venmo" name="venmo" value="" required="" title="Please enter your Phone Provider" placeholder="@david_j_malan">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div class="form-group">
-                                          <span class="help-block"></span>
-                                      </div>
-                                      <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
-                                      <div class="checkbox">
-                                          <label>
+                                      div(class="form-group")
+                                          label(for="lastName" class="control-label") Last Name
+                                          input(type="text" class="form-control" id="lastName" name="lastName" value="" required="" title="Please enter your last name" placeholder="Malan")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          label(for="email" class="control-label") Email
+                                          input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          label(for="password" class="control-label") Password
+                                          input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          label(for="repassword" class="control-label") Re-enter Password
+                                          input(type="password" class="form-control" id="repassword" name="repassword" value="" required="" title="Please re-enter your password")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          label(for="phone" class="control-label") Phone Number
+                                          input(type="text" class="form-control" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          label(for="phoneProvider" class="control-label") Your Phone Provider
+                                          input(type="text" class="form-control" id="phoneProvider" name="phoneProvider" value="" required="" title="Please enter your Phone Provider")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          label(for="venmo" class="control-label") Your Venmo name
+                                          input(type="text" class="form-control" id="venmo" name="venmo" value="" required="" title="Please enter your Phone Provider" placeholder="@david_j_malan")
+                                          span(class="help-block")
+                                      div(class="form-group")
+                                          span(class="help-block")
+                                      div(id="loginErrorMsg" class="alert alert-error hide") Wrong username or password
+                                      div(class="checkbox")
+                                          label
                                               <input type="checkbox" name="remember" id="remember"> Remember login
-                                          </label>
-                                          <p class="help-block">(if this is a private device)</p>
-                                      </div>
-                                      <button type="submit" class="btn btn-success btn-block">Register</button>
-                                  </form>
-                            </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                                          p(class="help-block") (if this is a private device)
+                                      button(type="submit" class="btn btn-success btn-block") Register
 
-        #navbar.right
-        .navbar-items-wrap
-            .navbar-item(onclick='renderRegister()') Register
-            .navbar-item(onclick='showModal()') Login
-    .modal#login-form
-        .modal-content
-            form.form
-                h1.form-title Login
-                #js-error-message.error-message
-                input.form-input(type='email' name='email' placeholder='Email'
-                required)
-                input.form-input(type='password' name='password' placeholder='Password'
-                required)
-                button.form-input.button(type='button' onclick='login()') Login
-                p Or #[a(href='/register') register] for an account
-    h1.title.center Welcome to TruckIt!
-    #items
-        each item in items
-            .item
-                .item-img-wrap
-                    img.item-img(src= item.img || config.defaultImg)
-                .item-info-wrap
-                    .item-name= item.name
-                    .item-price= '$' + item.price
-                    .item-buy-button.button.button-inline(
-                    onclick='buy("' + item._id + '")') Buy
-    #register
-        form.form
-                h1.form-title Register
-                #js-error-message.error-message
-                input.form-input(type='email' name='email' placeholder='Email'
-                required)
-                input.form-input(type='password' name='password' placeholder='Password'
-                required)
-                input.form-input(type='text' name='phone' placeholder='Venmo'
-                required)
-                input.form-input(type='text' name='vemno' placeholder='Venmo'
-                required)
-                button.form-input.button(type='button' onclick='register()') Register
+        div(class="container")
+            <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+            div(id="login-modal" class="modal fade" aria-hidden='true')
+                div(class="modal-content")
+                    div(class="modal-header")
+                        button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                        h4(class="modal-title" id="myModalLabel") Login to order!
+                    div(class="modal-body")
+                        div(class="row")
+                            div(class="well")
+                                form(id="loginForm" method="POST" action="/user" novalidate="novalidate")
+                                    div(class="form-group")
+                                        label(for="email" class="control-label") Email
+                                        input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
+                                        span(class="help-block")
+                                    div(class="form-group")
+                                        label(for="password" class="control-label") Password
+                                        input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
+                                        span(class="help-block")
+                                    div(class="form-group")
+                                        span(class="help-block")
+                                    div(id="loginErrorMsg" class="alert alert-error hide") Wrong username or password
+                                    div(class="checkbox")
+                                        label
+                                            <input type="checkbox" name="remember" id="remember"> Remember login
+                                        p(class="help-block") (if this is a private device)
+                                    button(type="submit" class="btn btn-success btn-block") Login
 
-//- block postscript
-//-     script if (localStorage.token) loginInit(JSON.parse(atob(localStorage.token.split('.')[1])));
+
+    <!-- jumbotron-->
+    div(class= 'jumbotron')
+        div(class= 'container text-center')
+            h1 Welcome to TruckIt!

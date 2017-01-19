@@ -1,0 +1,45 @@
+extends template
+
+block content
+    #navbar.right
+        .navbar-items-wrap
+            .navbar-item(onclick='renderRegister()') Register
+            .navbar-item(onclick='showModal()') Login
+    .modal#login-form
+        .modal-content
+            form.form
+                h1.form-title Login
+                #js-error-message.error-message
+                input.form-input(type='email' name='email' placeholder='Email'
+                required)
+                input.form-input(type='password' name='password' placeholder='Password'
+                required)
+                button.form-input.button(type='button' onclick='login()') Login
+                p Or #[a(href='/register') register] for an account
+    h1.title.center Welcome to TruckIt!
+    #items
+        each item in items
+            .item
+                .item-img-wrap
+                    img.item-img(src= item.img || config.defaultImg)
+                .item-info-wrap
+                    .item-name= item.name
+                    .item-price= '$' + item.price
+                    .item-buy-button.button.button-inline(
+                    onclick='buy("' + item._id + '")') Buy
+    #register
+        form.form
+                h1.form-title Register
+                #js-error-message.error-message
+                input.form-input(type='email' name='email' placeholder='Email'
+                required)
+                input.form-input(type='password' name='password' placeholder='Password'
+                required)
+                input.form-input(type='text' name='phone' placeholder='Venmo'
+                required)
+                input.form-input(type='text' name='vemno' placeholder='Venmo'
+                required)
+                button.form-input.button(type='button' onclick='register()') Register
+
+block postscript
+    script if (localStorage.token) loginInit(JSON.parse(atob(localStorage.token.split('.')[1])));
