@@ -73,7 +73,7 @@ router.get('/activeTrucks', (req, res, next) => {
 });
 
 router.get('/getMenu', (req, res, next) => {
-    request.post(config.apiUrl + '/trucks/'+, { form: req.body }).pipe(res);
+    request.post(config.apiUrl + '/trucks/'+ { form: req.body }).pipe(res);
 });
 
 module.exports = router;
