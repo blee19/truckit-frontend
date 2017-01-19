@@ -22,6 +22,7 @@ block content
                       div(class="row")
                               div(class="well")
                                   form(id="registerForm" method="POST" action="/user" novalidate="novalidate")
+
                                       div(class="form-group")
                                           label(for="firstName" class="control-label") First Name
                                           input(type="text" class="form-control" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David")
@@ -56,12 +57,11 @@ block content
                                           span(class="help-block")
                                       div(class="form-group")
                                           span(class="help-block")
-                                      div(id="loginErrorMsg" class="alert alert-error hide") Wrong username or password
                                       div(class="checkbox")
                                           label
                                               <input type="checkbox" name="remember" id="remember"> Remember login
                                           p(class="help-block") (if this is a private device)
-                                      button(type="submit" class="btn btn-success btn-block") Register
+                                      button(type="submit" class="btn btn-success btn-block" onclick='register()') Register
 
         div(class="container")
             <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->

@@ -77,6 +77,7 @@ function loginInit(info) {
 }
 
 function register() {
+	console.log("TESTT");
 	var form = document.forms[0];
 	displayError('');
 	clearError(form.password);
