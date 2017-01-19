@@ -4,7 +4,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const $ = require('jquery');
+
 
 const config = require('./app/models/config');
 const routes = require('./routes/index');
@@ -24,6 +24,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // log requests
 if (app.locals.dev) app.use(logger('dev'));
