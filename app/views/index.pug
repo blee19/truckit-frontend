@@ -101,13 +101,27 @@ block content
 
 
         div(class="panel-group" id="accordion" role="tablist" aria-multiselectable="true")
-            each val in trucks
+            each truck in trucks
                 div(class="panel panel-default")
-                    div(class="panel-heading" role="tab" id="headingOne")
+                    div(class="panel-heading" role="tab" id=""+ truck._id)
                         h4(class="panel-title")
                             a(role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
                                 i(class="more-less glyphicon glyphicon-plus")
-                                Collapsible Group Item #1
+                                Collapsible #{truck.companyName}
                     div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
                         div(class="panel-body")
-                              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          ul.list-group
+                            each item in truck.menu
+                              li.list-group-item.justify-content-between
+                                | #{item.name}
+                                | $#{item.price}
+                                .input-group
+                                    span.input-group-btn
+                                        button.btn.btn-danger.btn-number(type='button', data-type='minus', data-field='quant[2]')
+                                            span.glyphicon.glyphicon-minus
+                                    input.form-control.input-number(type='text', name='quant[2]', value='0', min='0', max='100' width = "100")
+                                    span.input-group-btn
+                                        button.btn.btn-success.btn-number(type='button', data-type='plus', data-field='quant[2]')
+                                            span.glyphicon.glyphicon-plus
+                        button.btn.btn-info.left(type='button') Place Order
+                                 
