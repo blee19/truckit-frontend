@@ -4,7 +4,7 @@ var login = document.getElementById('login-modal');
 var form = document.forms[0];
 var activeTrucks = [];
 
-$(register).hide();
+register.hide();
 
 document.body.onclick = function(e) {
 	if (e.target === modal)
@@ -477,7 +477,23 @@ function renderIndex(){
                 //return adminErrorHandler(res, document.getElementById('items'));
             res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
         }).catch(adminErrorHandler);
+    var ul = dropdowns.createElement("ul");  // Create with DOM
+    ul.class = "list-group";
+    for(var i = 0; i<activeTrucks[0].length; i++){
+        var list = ul.createElement("li");
+        list.class = "list-group-item justify-content-between";
+        list.innerHTML = activeTrucks[0].menu[i].name;
+        var select = list.createElement("span");
+        select.innherHTML = "Order"
+    }
+    <ul class="list-group">
+  <li class="list-group-item justify-content-between">
+    Cras justo odio
+    <span class="button">Order</span>
+  </li>
+  </ul>
     jumbotron.show();
+    dropdowns.show();
 }
 
 function renderRegister(){

@@ -2,13 +2,12 @@ const router = require('express').Router();
 const request = require('request');
 const config = require('../app/models/config');
 
-router.get('/', (req, res, next) => {
-    request.get(config.apiUrl + '/items', (err, response, body) => {
+request.get(config.apiUrl + '/trucks', (err, response, body) => {
         if (!err && response.statusCode == 200)
-            return res.render('index', {items: JSON.parse(body)});
-        else return res.render('index', {items: []});
-    });
+            return response.render('index', {trucks: JSON.parse(body)});
+        else return response.render('index', {trucks: []});
 });
+
 
 router.post('/login', (req, res, next) => {
     request.post(config.apiUrl + '/auth/token', { form: req.body }).pipe(res);
@@ -65,11 +64,6 @@ router.get('/admin/getpending', (req, res, next) => {
     request.get(config.apiUrl + '/users/pending', {
         headers: { 'x-access-token': req.headers['x-access-token'] }
     }).pipe(res);
-});
-
-router.get('/activeTrucks', (req, res, next) => {
-    request.get(config.apiUrl + '/trucks/').pipe(res);
-
 });
 
 router.get('/getMenu', (req, res, next) => {
