@@ -3,10 +3,14 @@ const request = require('request');
 const config = require('../app/models/config');
 
 router.get('/', (req, res, next) => {
+<<<<<<< HEAD
     request.get(config.apiUrl + '/trucks', (err, response, body) => {
+=======
+    request.get(config.apiUrl + '/items', (err, response, body) => {
+>>>>>>> bae66aa7e5873c122b850e6bcb4b625f4e5673bb
         if (!err && response.statusCode == 200)
-            return response.render('index', {trucks: JSON.parse(body)});
-        else return response.render('index', {trucks: []});
+            return res.render('index', {items: JSON.parse(body)});
+        else return res.render('index', {items: []});
     });
 });
 
