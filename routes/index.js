@@ -2,10 +2,12 @@ const router = require('express').Router();
 const request = require('request');
 const config = require('../app/models/config');
 
-request.get(config.apiUrl + '/trucks', (err, response, body) => {
+router.post('/', (req, res, next) => {
+    request.get(config.apiUrl + '/trucks', (err, response, body) => {
         if (!err && response.statusCode == 200)
             return response.render('index', {trucks: JSON.parse(body)});
         else return response.render('index', {trucks: []});
+    });
 });
 
 

@@ -1,6 +1,7 @@
 var modal = document.getElementsByClassName('modal')[0];
 var register = document.getElementById('register-modal');
 var login = document.getElementById('login-modal');
+var jumbotron = document.getElementsByClassName('jumbotron');
 var form = document.forms[0];
 var activeTrucks = [];
 
