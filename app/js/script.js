@@ -1,6 +1,10 @@
 var modal = document.getElementsByClassName('modal')[0];
-var register = document.getElementById('register');
-$(register).hide();
+var register = document.getElementById('register-modal');
+var login = document.getElementById('login-modal');
+var form = document.forms[0];
+var activeTrucks = [];
+
+register.hide();
 
 document.body.onclick = function(e) {
 	if (e.target === modal)
@@ -70,10 +74,6 @@ function loginInit(info) {
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 }
-function renderRegister(){
-    register.show();
-}
-
 
 function register() {
 	var form = document.forms[0];
@@ -106,7 +106,7 @@ function register() {
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
 		res.json().then(loginSuccess);
-		window.location = '/';
+		renderIndex();
 	}).catch(errorHandler);
 }
 
@@ -465,3 +465,43 @@ function showModal(toClearForm) {
 	if (toClearForm) document.forms[0].reset();
 }
 function hideModal() { modal.style.display = ''; }
+
+// ==========================================================
+// Rendering
+// ==========================================================
+function renderIndex(){
+    if(!localStorage.token) renderIndex();
+    fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
+        .then(function(res) {
+            if (!res.ok) return 
+                //return adminErrorHandler(res, document.getElementById('items'));
+            res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
+        }).catch(adminErrorHandler);
+    var ul = dropdowns.createElement("ul");  // Create with DOM
+    ul.class = "list-group";
+    for(var i = 0; i<activeTrucks[0].length; i++){
+        var list = ul.createElement("li");
+        list.class = "list-group-item justify-content-between";
+        list.innerHTML = activeTrucks[0].menu[i].name;
+        var select = list.createElement("span");
+        select.innherHTML = "Order"
+    }
+    jumbotron.show();
+    dropdowns.show();
+}
+
+function renderRegister(){
+    register.show();
+}
+
+function renderMenu(truckId){
+    if(!localStorage.token) renderIndex();
+    fetch('/getMenu', { headers: { 'x-access-token': localStorage.token } })
+        .then(function(res) {
+            if (!res.ok) return
+                // return adminErrorHandler(res, document.getElementById('items'));
+            res.json().then(function(users) { populateItemsPage(users) })
+        }).catch(adminErrorHandler);
+    register.show();
+}
+
