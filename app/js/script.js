@@ -486,12 +486,6 @@ function renderIndex(){
         var select = list.createElement("span");
         select.innherHTML = "Order"
     }
-    <ul class="list-group">
-  <li class="list-group-item justify-content-between">
-    Cras justo odio
-    <span class="button">Order</span>
-  </li>
-  </ul>
     jumbotron.show();
     dropdowns.show();
 }
