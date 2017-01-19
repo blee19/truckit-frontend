@@ -5,8 +5,8 @@ const config = require('../app/models/config');
 router.get('/', (req, res, next) => {
     request.get(config.apiUrl + '/items', (err, response, body) => {
         if (!err && response.statusCode == 200)
-            return res.render('login', {items: JSON.parse(body)});
-        else return res.render('login', {items: []});
+            return res.render('index', {items: JSON.parse(body)});
+        else return res.render('index', {items: []});
     });
 });
 
@@ -65,6 +65,15 @@ router.get('/admin/getpending', (req, res, next) => {
     request.get(config.apiUrl + '/users/pending', {
         headers: { 'x-access-token': req.headers['x-access-token'] }
     }).pipe(res);
+});
+
+router.get('/activeTrucks', (req, res, next) => {
+    request.get(config.apiUrl + '/trucks/').pipe(res);
+
+});
+
+router.get('/getMenu', (req, res, next) => {
+    request.post(config.apiUrl + '/trucks/'+, { form: req.body }).pipe(res);
 });
 
 module.exports = router;
