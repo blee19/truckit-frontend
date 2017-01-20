@@ -22,11 +22,8 @@ function login() {
 		body: JSON.stringify(data)
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
-		if (document.getElementById("login-modal").classList.contains("in")) {
-			document.getElementById("modal-form-submit").click();
-		} else {
-			res.json().then(loginSuccess);
-		}
+		res.json().then(loginSuccess);
+		$("#login-modal").modal("hide");
 	}).catch(errorHandler);
 }
 
@@ -103,14 +100,11 @@ function orderHistory() {
 			messageBlock.appendChild(message);
 			var modalMessage = document.getElementsById("history-list");
 			modalMessage.appendChild(messageBlock);
+		}
+		if (document.getElementById("history-list")) {
+			document.getElementById("modal-form-submit").click();
 		} else {
-			var orders = JSON.parse(res);
-			for(var i = 0; i < orders; i++)
-				var messageBlock = document.createElement("h3");
-				var message = document.createTextNode(order[i]["_id"])
-				messageBlock.appendChild(message);
-				var modalMessage = document.getElementsById("history-list");
-				modalMessage.appendChild(messageBlock);
+			res.json().then(loginSuccess);
 		}
 	}).catch(errorHandler);
 }
@@ -576,7 +570,7 @@ function createCart(){
             purchasedItems: selected,
             paid: new Date,
             totalPrice: totalPrice
-        };
+        }; 
 
     console.log(cart);
     $("#cart-modal").modal();
