@@ -50,6 +50,12 @@ function loginInit(info) {
 			users.href = '/admin/users';
 			users.innerHTML = 'Manage Users'
 			navbar.insertBefore(users, navbar.firstChild);
+
+            var pending = document.createElement('seePending');
+            pending.setAttribute('class', 'quiet-link navbar-item');
+            pending.innerHTML = 'See Pending'
+            pending.onclick = fetchPending();
+            navbar.insertBefore(pending, navbar.firstChild);
 		}
 		navbar.insertBefore(greeting, navbar.firstChild);
 
@@ -67,6 +73,8 @@ function loginInit(info) {
 	logout.href = '/logout';
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
+
+
 }
 
 function register() {
@@ -223,50 +231,50 @@ function fetchItems() {
 		}).catch(adminErrorHandler);
 }
 
-function populateItemsPage(items) {
-	var itemDiv = document.getElementById('items');
-	items.forEach(function(i) {
-		var div = document.createElement('div');
-		div.setAttribute('class', 'item');
-		var imgWrap = document.createElement('div')
-		imgWrap.setAttribute('class', 'item-img-wrap');
-		var img = document.createElement('img');
-		img.setAttribute('class', 'item-img');
-		img.src = i.img || defaultImg;
-		imgWrap.appendChild(img);
-		div.appendChild(imgWrap);
-		var info = document.createElement('div');
-		info.setAttribute('class', 'item-info-wrap');
-		var name = document.createElement('div');
-		name.setAttribute('class', 'item-name');
-		name.innerHTML = i.name;
-		info.appendChild(name);
-		var price = document.createElement('div');
-		price.setAttribute('class', 'item-price');
-		price.innerHTML = '$' + i.price;
-		info.appendChild(price);
-		var edit = document.createElement('div');
-		edit.setAttribute('class', 'item-buy-button button button-inline');
-		edit.onclick = function() { editItem(i); };
-		edit.innerHTML = 'Edit';
-		info.appendChild(edit);
-		var del = document.createElement('div');
-		del.setAttribute('class', 'item-buy-button button button-inline warning');
-		del.setAttribute('onclick', 'deleteItem("' + i._id + '", this)');
-		del.innerHTML = 'Delete';
-		info.appendChild(del);
-		div.appendChild(info);
-		itemDiv.appendChild(div);
-	});
-}
+// function populateItemsPage(items) {
+// 	var itemDiv = document.getElementById('items');
+// 	items.forEach(function(i) {
+// 		var div = document.createElement('div');
+// 		div.setAttribute('class', 'item');
+// 		var imgWrap = document.createElement('div')
+// 		imgWrap.setAttribute('class', 'item-img-wrap');
+// 		var img = document.createElement('img');
+// 		img.setAttribute('class', 'item-img');
+// 		img.src = i.img || defaultImg;
+// 		imgWrap.appendChild(img);
+// 		div.appendChild(imgWrap);
+// 		var info = document.createElement('div');
+// 		info.setAttribute('class', 'item-info-wrap');
+// 		var name = document.createElement('div');
+// 		name.setAttribute('class', 'item-name');
+// 		name.innerHTML = i.name;
+// 		info.appendChild(name);
+// 		var price = document.createElement('div');
+// 		price.setAttribute('class', 'item-price');
+// 		price.innerHTML = '$' + i.price;
+// 		info.appendChild(price);
+// 		var edit = document.createElement('div');
+// 		edit.setAttribute('class', 'item-buy-button button button-inline');
+// 		edit.onclick = function() { editItem(i); };
+// 		edit.innerHTML = 'Edit';
+// 		info.appendChild(edit);
+// 		var del = document.createElement('div');
+// 		del.setAttribute('class', 'item-buy-button button button-inline warning');
+// 		del.setAttribute('onclick', 'deleteItem("' + i._id + '", this)');
+// 		del.innerHTML = 'Delete';
+// 		info.appendChild(del);
+// 		div.appendChild(info);
+// 		itemDiv.appendChild(div);
+// 	});
+// }
 
 function fetchPending() {
-	if(!localStorage.token) window.location = '/';
+	//if(!localStorage.token) window.location = '/';
 	fetch('/admin/getpending', { headers: { 'x-access-token': localStorage.token } })
 		.then(function(res) {
 			if (!res.ok)
 				return adminErrorHandler(res, document.getElementById('js-pending'));
-			res.json().then(function(pending) { populatePendingPage(pending) })
+			return res.json().then(function(pending) { populatePendingPage(pending) })
 		}).catch(adminErrorHandler);
 }
 
@@ -465,15 +473,6 @@ function hideModal() { modal.style.display = ''; }
 // Rendering
 // ==========================================================
 function renderIndex(){
-    fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
-        .then(function(res) {
-            if (!res.ok) return;
-                //return adminErrorHandler(res, document.getElementById('items'));
-            activeTrucks = JSON.parse(res);
-            console.log(activeTrucks);
-            return res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
-        }).catch(adminErrorHandler);
-
     // var ul = dropdowns.createElement("ul");  // Create with DOM
     // ul.class = "list-group";
     // for(var i = 0; i<activeTrucks[0].length; i++){
@@ -494,37 +493,67 @@ function renderRegister(){
 function createCart(){
     var selected;
     var truckId = event.target.id;
-    console.log(activeTrucks);
+    var truck;
+    console.log(truckId);
+     var quant = $('#'+truck.menu[i]._id).val();
+    if ($('#'+quant).val() !== 0){
+    selected.push({
+        item: {
+            price: truck.menu[i].price,
+            name: truck.menu[i].name,
+            quantity: quant
+            }
+        });
+    }
+
+        var cart = {
+            truck: truckId,
+            purchasedItems: selected,
+            paid: new Date
+        }; 
+    }
+
     //find truck where id = truck id
     //FETCH REQUEST TO GET TRUCK OBJECT to get menu
-    var truck;
-    for(var i=0; i<activeTrucks.length; i++){
-        console.log("active: " + activeTrucks[i]);
-        if(activeTrucks[i]._id === truckId){
-            truck = activeTrucks[i];
-            console.log(truck);
-        }
-    }
-    for(var i=0; i<truck.menu.length; i++){
-        var quant = $('#'+truck.menu[i]._id).val();
-        if ($('#'+quant).val() !== 0){
-            selected.push({
-                item: {
-                    price: $('#'+truck.menu[i]._id+'price').val(),
-                    name: $('#'+truck.menu[i]._id+'name').val(),
-                    quantity: quant
-                }
-            })
-        }
 
-    }
-    var cart = {
-        truck: truckId,
-        purchasedItems: selected,
-        paid: new Date
-    }
+    // fetch('/getTruckById/'+truckId, { headers: { 'x-access-token': localStorage.token } })
+    //     .then(function(res) {
+    //         if (!res.ok) return;
+    //             //return adminErrorHandler(res, document.getElementById('trucks'));//will probably error
+    //         res.json()
+    //         .then(function(truckJson) { 
+    //             console.log(truckJson);
+    //             for(var i=0; i<truckJson.menu.length; i++){
+    //                 var quant = $('#'+truck.menu[i]._id).val();
+    //                 if ($('#'+quant).val() !== 0){
+    //                     selected.push({
+    //                         item: {
+    //                             price: truck.menu[i].price,
+    //                             name: truck.menu[i].name,
+    //                             quantity: quant
+    //                         }
+    //                     })
+    //                 }
 
-}
+    //             }
+    //             var cart = {
+    //                 truck: truckId,
+    //                 purchasedItems: selected,
+    //                 paid: new Date
+    //             } 
+    //         })
+    //     }).catch(adminErrorHandler);
+    
+
+    // for(var i=0; i<activeTrucks.length; i++){
+    //     console.log("active: " + activeTrucks[i]);
+    //     if(activeTrucks[i]._id === truckId){
+    //         truck = activeTrucks[i];
+    //         console.log(truck);
+    //     }
+    // }
+
+
 
 // function renderMenu(truckId){
 //     if(!localStorage.token) renderIndex();
