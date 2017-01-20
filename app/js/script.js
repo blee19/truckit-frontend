@@ -83,6 +83,12 @@ function loginInit(info) {
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 
+	var history = document.createElement('a');
+	history.setAttribute('class', 'quiet-link navbar-item');
+	history.href = '/history';
+	history.innerHTML = 'History';
+	navbar.appendChild(history);
+
 
 }
 
@@ -116,7 +122,7 @@ function register() {
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
 		error(form.password);
-		error(form.passwordConfirm);
+		error(form.repassword);
 	}
 	else var errorMessage = '';
 	var emptyFields = checkRequired(form);
@@ -614,7 +620,6 @@ $(document).on('click', '.btn-number', function (e) {
     type      = $(this).attr('data-type');
 	console.log(itemName);
     var input = $("input[bid='"+itemName+"']");
-
     var currentVal = parseInt(input.val());
     if (!isNaN(currentVal)) {
         if(type == 'minus') {
