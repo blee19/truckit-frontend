@@ -30,7 +30,9 @@ function login() {
 function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
-	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	var x = atob(res.token.split('.')[1]);
+	console.log(x)
+	var payload = JSON.parse(x);
 	if(payload["isAdmin"]){
 		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
 			var userViewClass = (document.getElementsByClassName("user-view")[i]).classList;
@@ -131,6 +133,9 @@ function register() {
 	clearError(form.password);
 	clearError(form.repassword);
 	var data = getFormData(form);
+	
+	console.log('data stringified: ' + JSON.stringify(data));
+	
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
 		error(form.password);
