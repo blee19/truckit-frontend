@@ -85,7 +85,7 @@ function submitOnEnterKey(submitFunction, targetForm) {
     var children = targetForm.childNodes;
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
-        if (child.getAttribute('class') === 'form-group') 
+        if (child.getAttribute('class') === 'form') 
             submitOnEnterKey(submitFunction, child);
         var type = child.getAttribute('type');
         if (type === 'text' || type === 'email' || type === 'password' ||
