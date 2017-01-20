@@ -10,6 +10,18 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.post('/buy', (req, res, next) => {
+    if (!req.body.id) {
+        return res.sendStatus(400);
+    }
+    console.log('req.body:', req.body);
+    
+    request.post({
+        url: config.apiUrl + '/orders/',
+        headers: { 'x-access-token': req.headers['x-access-token'] },
+        form: req.body
+    }).pipe(res);
+});
 
 router.post('/login', (req, res, next) => {
     request.post(config.apiUrl + '/auth/token', { form: req.body }).pipe(res);
