@@ -116,12 +116,12 @@ block content
                                 | #{item.name}
                                 | $#{item.price}
                                 .input-group
-                                    span.input-group-btn
-                                        button(class="btn btn-danger btn-number" type='button', data-type='minus', data-field='quant[2]')
+                                    span(class='input-group-btn')
+                                        button.btn.btn-danger.btn-number(qid=item.name, type='button', data-type='minus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-minus
-                                    input.form-control.input-number(type='text', name='quant[2]', value='0', min='0', max='100' width = "100")
+                                    input.form-control.input-number(id=item.name, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
                                     span.input-group-btn
-                                        button.btn.btn-success.btn-number(type='button', data-type='plus', data-field='quant[2]')
+                                        button.btn.btn-success.btn-number(qid=item.name, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
                         button.btn.btn-info.right(id = truck._id type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
 
