@@ -51,23 +51,23 @@ function loginInit(info) {
 	console.log("successfully logged in");
 	// greet
 	if (info.firstName || info.email) {
-		var greeting = document.createElement('div');
-		greeting.setAttribute('class', 'navbar-item');
+		var greeting = document.createElement('navbar-left');
+		greeting.setAttribute('class', 'h2');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
 		if (info.isAdmin) {
-			var users = document.createElement('a');
-			users.setAttribute('class', 'quiet-link navbar-item');
-			users.href = '/admin/users';
-			users.innerHTML = 'Manage Users'
-			navbar.insertBefore(users, navbar.firstChild);
+			// var users = document.createElement('a');
+			// users.setAttribute('class', 'quiet-link navbar-item');
+			// users.href = '/admin/users';
+			// users.innerHTML = 'Manage Users'
+			// navbar.insertBefore(users, navbar.firstChild);
 
-            var pending = document.createElement('seePending');
-            pending.setAttribute('class', 'quiet-link navbar-item');
-            pending.innerHTML = 'See Pending'
-            pending.onclick = fetchPending();
-            navbar.insertBefore(pending, navbar.firstChild);
+   //          var pending = document.createElement('seePending');
+   //          pending.setAttribute('class', 'quiet-link navbar-item');
+   //          pending.innerHTML = 'See Pending'
+   //          pending.onclick = fetchPending();
+   //          navbar.insertBefore(pending, navbar.firstChild);
 		}
-		navbar.insertBefore(greeting, navbar.firstChild);
+		navbar.appendChild(greeting);
 
 	}
 
@@ -77,9 +77,10 @@ function loginInit(info) {
     var elem = document.getElementById('login');
     elem.parentNode.removeChild(elem);
 
-	var logout = document.createElement('a');
-	logout.setAttribute('class', 'quiet-link navbar-item');
-	logout.href = '/logout';
+	var logout = document.createElement('button');
+	logout.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
+	logout.setAttribute('id', 'logout');
+	logout.setAttribute('onclick', 'location.href = "/logout"')
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 
@@ -489,15 +490,10 @@ function headers() {
 // ==========================================================
 
 function buy(cart) {
-	if (!localStorage.token)
-		return modal.style.display = 'block';
-	quantity = quantity || 1;
-	console.log(id);
-
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
-		body: JSON.stringify({ id: id, quantity: quantity })
+		body: cart,
 	}).then(buySuccess)
 		.catch(buyError);
 }
@@ -546,36 +542,44 @@ function renderRegister(){
 }
 
 function createCart(){
+    if (!localStorage.token){
+        return $("#login-modal").modal();
+        //return modal.style.display = 'block';
+    }
     var selected = [];
+    var totalPrice;
     var truckId = event.target.id;
     var truck;
-    var menu = document.getElementById('menuItem').innerText;
-    console.log(truckId);
-    // for(var i = 0; i<menu.length)
-
-        console.log(menu);
-        var itemName = menu.split(' ')[0];
-        var itemPrice = +menu.split(' ')[1].slice(1).trim();
+    var menus = document.getElementsByClassName(truckId+'menuItem');
+    // console.log("menu: " +menus);
+    for(var i = 0; i<menus.length; i++){
+        console.log("menu: " +menus[i]);
+        //console.log(menus);
+        //if(menus[i].id===)
+        var itemName = menus[i].innerText.split(' ')[0];
+        var itemPrice = +menus[i].innerText.split(' ')[1].slice(1).trim();
         console.log('itemPrice: ' + itemPrice);
         var quant = $('#'+truckId+itemName).val();
-        if ($('#'+quant).val() !== 0){
-        selected.push({
-            item: {
-                price: itemPrice,
-                name: itemName,
-                quantity: quant
-                }
-            });
+        if (+quant !== 0){
+            selected.push({
+                    price: itemPrice,
+                    name: itemName,
+                    quantity: +quant
+                });
+            totalPrice += itemPrice
         }
-
+    }
         var cart = {
             truck: truckId,
             purchasedItems: selected,
             paid: new Date,
-            totalPrice: quant
-        };
+            totalPrice: totalPrice
+        }; 
+
     console.log(cart);
-    sendCart(cart);
+    $("#cart-modal").modal();
+    //onlcik ord
+    document.getElementById('buy').onclick = buy(cart);
     }
 
     //find truck where id = truck id
