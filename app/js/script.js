@@ -55,19 +55,19 @@ function loginInit(info) {
 		greeting.setAttribute('class', 'navbar-item');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
 		if (info.isAdmin) {
-			var users = document.createElement('a');
-			users.setAttribute('class', 'quiet-link navbar-item');
-			users.href = '/admin/users';
-			users.innerHTML = 'Manage Users'
-			navbar.insertBefore(users, navbar.firstChild);
+			// var users = document.createElement('a');
+			// users.setAttribute('class', 'quiet-link navbar-item');
+			// users.href = '/admin/users';
+			// users.innerHTML = 'Manage Users'
+			// navbar.insertBefore(users, navbar.firstChild);
 
-            var pending = document.createElement('seePending');
-            pending.setAttribute('class', 'quiet-link navbar-item');
-            pending.innerHTML = 'See Pending'
-            pending.onclick = fetchPending();
-            navbar.insertBefore(pending, navbar.firstChild);
+   //          var pending = document.createElement('seePending');
+   //          pending.setAttribute('class', 'quiet-link navbar-item');
+   //          pending.innerHTML = 'See Pending'
+   //          pending.onclick = fetchPending();
+   //          navbar.insertBefore(pending, navbar.firstChild);
 		}
-		navbar.insertBefore(greeting, navbar.firstChild);
+		navbar.appendChild(greeting, navbar.firstChild);
 
 	}
 
