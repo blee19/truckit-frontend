@@ -93,7 +93,7 @@ function submitOnEnterKey(submitFunction, targetForm) {
     var children = targetForm.childNodes;
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
-        if (child.getAttribute('class') === 'form') 
+        if (child.getAttribute('class') === 'form')
             submitOnEnterKey(submitFunction, child);
         var type = child.getAttribute('type');
         if (type === 'text' || type === 'email' || type === 'password' ||
@@ -522,7 +522,7 @@ function createCart(){
     var menu = document.getElementById('menuItem').innerText;
     console.log(truckId);
     // for(var i = 0; i<menu.length)
-        
+
         console.log(menu);
         var itemName = menu.split(' ')[0];
         var itemPrice = +menu.split(' ')[1].slice(1).trim();
@@ -541,9 +541,9 @@ function createCart(){
         var cart = {
             truck: truckId,
             purchasedItems: selected,
-            paid: new Date
-            totalPrice: 
-        }; 
+            paid: new Date,
+            totalPrice: quant
+        };
     console.log(cart);
     sendCart(cart);
     }
@@ -556,7 +556,7 @@ function createCart(){
     //         if (!res.ok) return;
     //             //return adminErrorHandler(res, document.getElementById('trucks'));//will probably error
     //         res.json()
-    //         .then(function(truckJson) { 
+    //         .then(function(truckJson) {
     //             console.log(truckJson);
     //             for(var i=0; i<truckJson.menu.length; i++){
     //                 var quant = $('#'+truck.menu[i]._id).val();
@@ -575,10 +575,10 @@ function createCart(){
     //                 truck: truckId,
     //                 purchasedItems: selected,
     //                 paid: new Date
-    //             } 
+    //             }
     //         })
     //     }).catch(adminErrorHandler);
-    
+
 
     // for(var i=0; i<activeTrucks.length; i++){
     //     console.log("active: " + activeTrucks[i]);
