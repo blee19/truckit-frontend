@@ -10,6 +10,16 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/getTruckById/:id', (req, res, next) => {
+    request.get(config.apiUrl + '/trucks/'+ req.params.id, (err, response, body) => {
+        if (!err && response.statusCode == 200){
+            console.log(body);
+            return res.json(body);
+        }
+        else return res.json([]);
+    });
+});
+
 router.post('/buy', (req, res, next) => {
     if (!req.body.id) {
         return res.sendStatus(400);
