@@ -85,11 +85,31 @@ function loginInit(info) {
 
 	var history = document.createElement('a');
 	history.setAttribute('class', 'quiet-link navbar-item');
-	history.href = '/history';
 	history.innerHTML = 'History';
+	history.setAttribute('data-target','#history-modal')
+	history.setAttribute('data-toggle','modal')
+	history.setAttribute('onclick', '')
 	navbar.appendChild(history);
+}
 
-
+function orderHistory() {
+	fetch('/history', {
+		headers: headers(),
+		method: 'GET',
+	}).then(function(res) {
+		if (!res.ok) {
+			var messageBlock = document.createElement("h3");
+			var message = document.createTextNode("No Order History Found")
+			messageBlock.appendChild(message);
+			var modalMessage = document.getElementsById("history-list");
+			modalMessage.appendChild(messageBlock);
+		}
+		if (document.getElementById("history-list")) {
+			document.getElementById("modal-form-submit").click();
+		} else {
+			res.json().then(loginSuccess);
+		}
+	}).catch(errorHandler);
 }
 
 // allows us to submit with enter key
