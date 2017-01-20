@@ -98,7 +98,7 @@ block content
                             h4(class="modal-title" id="myModalLabel") Review Your Order!
                         div(class="modal-body")
                             div(class="row")
-                                button(type="submit" class="btn btn-success btn-block" onclick='sendCart()') Place Order
+                                button(type="submit" class="btn btn-success btn-block" onclick='buy(trucks)') Place Order
 
 
     <!-- jumbotron-->
@@ -108,7 +108,7 @@ block content
 
     div(class="container demo")
         div(class="panel-group" id="accordion" role="tablist" aria-multiselectable="true")
-          if(window)
+          if(!window)
             each truck in trucks
                 div(class="panel panel-default")
                     div(class="panel-heading" role="tab" id="panel"+ truck._id)
