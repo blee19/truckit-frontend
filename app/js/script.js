@@ -29,14 +29,20 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
-	
-	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
+	if(payload["isAdmin"]){
+		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
+			var userViewClass = (document.getElementsByClassName("user-view")[i]).classList;
+			userViewClass.add("hidden");
+			var adminViewClass = (document.getElementsByClassName("admin-view")[i]).classList;
+			adminViewClass.remove("hidden");
+
+		}
+	}
 	loginInit(payload);
 }
 
 function loginInit(info) {
-	var navbar = document.getElementById('navbar').childNodes[1];
-
+	var navbar = document.getElementById('navbar');
 	console.log("successfully logged in");
 	console.log("payload 2: " + info);
 	// greet
@@ -67,7 +73,7 @@ function loginInit(info) {
     elem.parentNode.removeChild(elem);
     var elem = document.getElementById('login');
     elem.parentNode.removeChild(elem);
-	
+
 	var logout = document.createElement('a');
 	logout.setAttribute('class', 'quiet-link navbar-item');
 	logout.href = '/logout';
@@ -433,7 +439,7 @@ function headers() {
 // Buy page
 // ==========================================================
 
-function buy(id, quantity) {
+function buy(cart) {
 	if (!localStorage.token)
 		return modal.style.display = 'block';
 	quantity = quantity || 1;
@@ -491,26 +497,36 @@ function renderRegister(){
 }
 
 function createCart(){
-    var selected;
+    var selected = [];
     var truckId = event.target.id;
     var truck;
+    var menu = document.getElementById('menuItem').innerText;
     console.log(truckId);
-     var quant = $('#'+truck.menu[i]._id).val();
-    if ($('#'+quant).val() !== 0){
-    selected.push({
-        item: {
-            price: truck.menu[i].price,
-            name: truck.menu[i].name,
-            quantity: quant
-            }
-        });
-    }
+    // for(var i = 0; i<menu.length)
+        
+        console.log(menu);
+        var itemName = menu.split(' ')[0];
+        var itemPrice = +menu.split(' ')[1].slice(1).trim();
+        console.log('itemPrice: ' + itemPrice);
+        var quant = $('#'+truckId+itemName).val();
+        if ($('#'+quant).val() !== 0){
+        selected.push({
+            item: {
+                price: itemPrice,
+                name: itemName,
+                quantity: quant
+                }
+            });
+        }
 
         var cart = {
             truck: truckId,
             purchasedItems: selected,
             paid: new Date
+            totalPrice: 
         }; 
+    console.log(cart);
+    sendCart(cart);
     }
 
     //find truck where id = truck id

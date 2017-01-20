@@ -60,7 +60,7 @@ block content
                                       label
                                           <input type="checkbox" name="remember" id="remember"> Remember login
                                       p(class="help-block") (if this is a private device)
-                                  button(type="submit" class="btn btn-success btn-block" onclick='register()') Register
+                                  button(type="button" class="btn btn-success btn-block" onclick='register()') Register
 
     div(class="container")
         <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
@@ -73,7 +73,7 @@ block content
                     div(class="row")
                         div(class="well")
                             form(id="loginForm")
-                                div(class="form-group")
+                                div(class="form")
                                     label(for="email" class="control-label") Email
                                     input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
                                     span(class="help-block")
@@ -88,7 +88,7 @@ block content
                                     label
                                         <input type="checkbox" name="remember" id="remember"> Remember login
                                     p(class="help-block") (if this is a private device)
-                                button(class="btn btn-success btn-block" onclick='login()') Login
+                                button(class="btn btn-success btn-block" type="button" onclick='login()') Login
         div(class="container")
                 <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
                 div(id="cart-modal" class="modal fade" aria-hidden='true')
@@ -120,35 +120,21 @@ block content
                         div(class="panel-body")
                           ul.list-group
                             each item in truck.menu
-                              li.list-group-item.justify-content-between
+                              li.list-group-item.justify-content-between(id='menuItem')
                                 | #{item.name}
                                 | $#{item.price}
-                                .input-group
+                                .input-group.user-view
                                     span(class='input-group-btn')
                                         button.btn.btn-danger.btn-number(qid=item._id, type='button', data-type='minus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-minus
-                                    input.form-control.input-number(id=item._id, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
+                                    -var s = truck._id + item.name
+                                    input.form-control.input-number(id=s, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
+                                label.toggler(class="checkbox-inline hidden admin-view")
+                                    input(type="checkbox" data-toggle="toggle")
                           button.button.btn(class='col-md-3 .col-md-offset-3' id=truck._id type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
-          else
-            each truck in trucks
-              div(class="panel panel-default")
-                  div(class="panel-heading" role="tab" id="panel"+ truck._id)
-                      h4(class="panel-title")
-                          a(role="button" class="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
-                              i(class="more-less glyphicon glyphicon-plus")
-                              Collapsible #{truck.companyName}
-                  div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
-                      div(class="panel-body")
-                        ul.list-group
-                        each item in truck.menu
-                          li.list-group-item.justify-content-between
-                            | #{item.name}
-                            | $#{item.price}
-                            label.toggler(class="checkbox-inline")
-                                input(type="checkbox" data-toggle="toggle")
 
 
 
