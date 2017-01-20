@@ -22,11 +22,8 @@ function login() {
 		body: JSON.stringify(data)
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
-		if (document.getElementById("login-modal").classList.contains("in")) {
-			document.getElementById("modal-form-submit").click();
-		} else {
-			res.json().then(loginSuccess);
-		}
+		res.json().then(loginSuccess);
+		$("#login-modal").modal("hide");
 	}).catch(errorHandler);
 }
 
