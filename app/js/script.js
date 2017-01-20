@@ -29,11 +29,16 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	
+	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
 	loginInit(payload);
 }
 
 function loginInit(info) {
 	var navbar = document.getElementById('navbar').childNodes[1];
+
+	console.log("successfully logged in");
+	console.log("payload 2: " + info);
 	// greet
 	if (info.firstName || info.email) {
 		var greeting = document.createElement('div');
@@ -53,7 +58,7 @@ function loginInit(info) {
 	console.log("right before for loop")
 	//replace register/login with logout
 	for (var i = 0; i < navbar.childNodes.length; i++) {
-		console.log("first line in for loop")
+		console.log("first line in for loop");
 		var c = navbar.childNodes[i];
 		if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
 			c.style.display = 'none';
@@ -66,7 +71,7 @@ function loginInit(info) {
 }
 
 function register() {
-	console.log("TESTT");
+	console.log("TEST");
 	var form = document.forms[0];
 	displayError('');
 	clearError(form.password);
