@@ -120,8 +120,8 @@ block content
                         div(class="panel-body")
                           ul.list-group
                             each item in truck.menu
-                              li.list-group-item.justify-content-between
-                                | #{item.name}
+                              li.list-group-item.justify-content-between(id='menuItem')
+                                | #{JSON.stringify(truck.menu)}
                                 | $#{item.price}
                                 .input-group.user-view
                                     span(class='input-group-btn')
@@ -134,23 +134,7 @@ block content
                                 label.toggler(class="checkbox-inline hidden admin-view")
                                     input(type="checkbox" data-toggle="toggle")
                           button.button.btn(class='col-md-3 .col-md-offset-3' id='truck._id' type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
-          else
-            each truck in trucks
-              div(class="panel panel-default")
-                  div(class="panel-heading" role="tab" id="panel"+ truck._id)
-                      h4(class="panel-title")
-                          a(role="button" class="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
-                              i(class="more-less glyphicon glyphicon-plus")
-                              Collapsible #{truck.companyName}
-                  div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
-                      div(class="panel-body")
-                        ul.list-group
-                        each item in truck.menu
-                          li.list-group-item.justify-content-between
-                            | #{item.name}
-                            | $#{item.price}
-                            label.toggler(class="checkbox-inline")
-                                input(type="checkbox" data-toggle="toggle")
+
 
 
 
