@@ -21,7 +21,7 @@ router.get('/getTruckById/:id', (req, res, next) => {
 });
 
 router.post('/buy', (req, res, next) => {
-    if (!req.body.id) {
+    if (!req.body) {
         return res.sendStatus(400);
     }
     console.log('req.body:', req.body);
