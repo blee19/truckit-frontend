@@ -1,6 +1,7 @@
 @require "helpers"
 
 text-color = #000
+button-color = #000
 
 *
   box-sizing border-box
@@ -23,8 +24,8 @@ html
 .panel-group .panel {
   border-radius: 0;
   box-shadow: none;
-  border-color: #42a543;
-  background-color: #42a543;
+  border-color: #E37222;
+  background: rgba(240,128,128, 0.6);
 }
 
 .toggler {
@@ -33,19 +34,19 @@ html
 }
 
 .navbar{
-    background-color: #888;
+    background-color: #000;
     border-color: #000;
-    color: #ff5050
+    color: white
 }
 
 a:link {
   text-decoration:  none;
-  font-weight:      bold;
+  font-weight: bold;
 }
 
 a:hover {
-  font-weight:      bold;
-  color: white;
+  font-weight: bold;
+  color: EEAA7B;
 }
 
 .h1
@@ -53,19 +54,19 @@ a:hover {
   text-decoration: none;
   font-weight: bold;
   padding: 15 px;
-  font-color: red;
-
+  padding-top: 20px;
+  font-color: #E37222;
 
 .panel-default > .panel-heading {
   padding: 0;
   border-radius: 0;
-  color: #3be23b;
+  color: #000;
   background-color: #42a543;
   border-color: #42a543;
 }
 
 .panel-title {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .panel-title > a {
@@ -106,8 +107,8 @@ a:hover {
   padding 15px
   border-radius 5px
   border 0
-  background-color button-color
   cursor pointer
+  background-color #66B9BF
 .button:hover
   background-color button-color-transparent-alt
   background-color button-color-transparent
@@ -188,5 +189,6 @@ a:hover {
 
 .jumbotron {
    background: rgb(255, 255, 255); /* This is for ie8 and below */
-   background: rgba(255,255,255, .1);
+   background: rgba(255,255,255, 0);
+   font-color: #E37222;
 }

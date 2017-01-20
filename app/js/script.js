@@ -35,11 +35,7 @@ function loginSuccess(res) {
 }
 
 function loginInit(info) {
-	var navbar = document.getElementById('navbar').childNodes[1];
-	var itemOptions = document.getElementsByClassName('user-view');
-	for(var i = 0; i < itemOptions.length; i++) {
-		itemOptions[i] = "<label class=\"toggler checkbox-inline\"><div class=\"toggle btn btn-default off\" data-toggle=\"toggle\" style=\"width: 39.3333px; height: 14.2222px;\"><input type=\"checkbox\" data-toggle=\"toggle\"><div class=\"toggle-group\"><label class=\"btn btn-primary toggle-on\">On</label><label class=\"btn btn-default active toggle-off\">Off</label><span class=\"toggle-handle btn btn-default\"></span></div></div></label>"
-	}
+	var navbar = document.getElementById('navbar');
 	console.log("successfully logged in");
 	console.log("payload 2: " + info);
 	// greet
