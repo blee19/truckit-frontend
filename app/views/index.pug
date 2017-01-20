@@ -11,85 +11,94 @@ block content
         button(type="button" class="btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
         button(type="button" class="btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#register-modal") Register
 
-        div(class="container")
-          <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
-          div(id="register-modal" class="modal fade container" aria-hidden='true')
-              div(class="modal-content")
-                  div(class="modal-header")
-                      button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
-                      h2(class="modal-title" id="myModalLabel") Register just once and you're set!
-                  div(class="modal-body")
-                      div(class="row")
-                              div(class="well")
-                                  form(id="registerForm" method="POST" action="/user" novalidate="novalidate")
+    div(class="container")
+      <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+      div(id="register-modal" class="modal fade" aria-hidden='true')
+          div(class="modal-content")
+              div(class="modal-header")
+                  button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                  h2(class="modal-title" id="myModalLabel") Register just once and you're set!
+              div(class="modal-body")
+                  div(class="row")
+                          div(class="well")
+                              form(id="registerForm" method="POST" action="/user" novalidate="novalidate")
+                                  div(class="form-group")
+                                      label(for="firstName" class="control-label") First Name
+                                      input(type="text" class="form-control" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David")
+                                      <span class="help-block"></span>
+                                  div(class="form-group")
+                                      label(for="lastName" class="control-label") Last Name
+                                      input(type="text" class="form-control" id="lastName" name="lastName" value="" required="" title="Please enter your last name" placeholder="Malan")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      label(for="email" class="control-label") Email
+                                      input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      label(for="password" class="control-label") Password
+                                      input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      label(for="repassword" class="control-label") Re-enter Password
+                                      input(type="password" class="form-control" id="repassword" name="repassword" value="" required="" title="Please re-enter your password")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      label(for="phone" class="control-label") Phone Number
+                                      input(type="text" class="form-control" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      label(for="phoneProvider" class="control-label") Your Phone Provider
+                                      input(type="text" class="form-control" id="phoneProvider" name="phoneProvider" value="" required="" title="Please enter your Phone Provider")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      label(for="venmo" class="control-label") Your Venmo name
+                                      input(type="text" class="form-control" id="venmo" name="venmo" value="" required="" title="Please enter your Phone Provider" placeholder="@david_j_malan")
+                                      span(class="help-block")
+                                  div(class="form-group")
+                                      span(class="help-block")
+                                  div(class="checkbox")
+                                      label
+                                          <input type="checkbox" name="remember" id="remember"> Remember login
+                                      p(class="help-block") (if this is a private device)
+                                  button(type="submit" class="btn btn-success btn-block" onclick='register()') Register
 
-                                      div(class="form-group")
-                                          label(for="firstName" class="control-label") First Name
-                                          input(type="text" class="form-control" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David")
-                                          <span class="help-block"></span>
-                                      div(class="form-group")
-                                          label(for="lastName" class="control-label") Last Name
-                                          input(type="text" class="form-control" id="lastName" name="lastName" value="" required="" title="Please enter your last name" placeholder="Malan")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          label(for="email" class="control-label") Email
-                                          input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          label(for="password" class="control-label") Password
-                                          input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          label(for="repassword" class="control-label") Re-enter Password
-                                          input(type="password" class="form-control" id="repassword" name="repassword" value="" required="" title="Please re-enter your password")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          label(for="phone" class="control-label") Phone Number
-                                          input(type="text" class="form-control" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          label(for="phoneProvider" class="control-label") Your Phone Provider
-                                          input(type="text" class="form-control" id="phoneProvider" name="phoneProvider" value="" required="" title="Please enter your Phone Provider")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          label(for="venmo" class="control-label") Your Venmo name
-                                          input(type="text" class="form-control" id="venmo" name="venmo" value="" required="" title="Please enter your Phone Provider" placeholder="@david_j_malan")
-                                          span(class="help-block")
-                                      div(class="form-group")
-                                          span(class="help-block")
-                                      div(class="checkbox")
-                                          label
-                                              <input type="checkbox" name="remember" id="remember"> Remember login
-                                          p(class="help-block") (if this is a private device)
-                                      button(type="submit" class="btn btn-success btn-block" onclick='register()') Register
-
+    div(class="container")
+        <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+        div(id="login-modal" class="modal fade" aria-hidden='true')
+            div(class="modal-content")
+                div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                    h4(class="modal-title" id="myModalLabel") Login to order!
+                div(class="modal-body")
+                    div(class="row")
+                        div(class="well")
+                            form(id="loginForm")
+                                div(class="form-group")
+                                    label(for="email" class="control-label") Email
+                                    input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
+                                    span(class="help-block")
+                                div(class="form-group")
+                                    label(for="password" class="control-label") Password
+                                    input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
+                                    span(class="help-block")
+                                div(class="form-group")
+                                    span(class="help-block")
+                                div(id="loginErrorMsg" class="alert alert-error hide") Wrong username or password
+                                div(class="checkbox")
+                                    label
+                                        <input type="checkbox" name="remember" id="remember"> Remember login
+                                    p(class="help-block") (if this is a private device)
+                                button(class="btn btn-success btn-block" onclick='login()') Login
         div(class="container")
-            <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
-            div(id="login-modal" class="modal fade" aria-hidden='true')
-                div(class="modal-content")
-                    div(class="modal-header")
-                        button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
-                        h4(class="modal-title" id="myModalLabel") Login to order!
-                    div(class="modal-body")
-                        div(class="row")
-                            div(class="well")
-                                form(id="loginForm")
-                                    div(class="form-group")
-                                        label(for="email" class="control-label") Email
-                                        input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
-                                        span(class="help-block")
-                                    div(class="form-group")
-                                        label(for="password" class="control-label") Password
-                                        input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
-                                        span(class="help-block")
-                                    div(class="form-group")
-                                        span(class="help-block")
-                                    div(id="loginErrorMsg" class="alert alert-error hide") Wrong username or password
-                                    div(class="checkbox")
-                                        label
-                                            <input type="checkbox" name="remember" id="remember"> Remember login
-                                        p(class="help-block") (if this is a private device)
-                                    button(class="btn btn-success btn-block" onclick='login()') Login
+                <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+                div(id="cart-modal" class="modal fade" aria-hidden='true')
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                            h4(class="modal-title" id="myModalLabel") Review Your Order!
+                        div(class="modal-body")
+                            div(class="row")
+                                button(type="submit" class="btn btn-success btn-block" onclick='sendCart()') Place Order
 
 
     <!-- jumbotron-->
@@ -98,9 +107,8 @@ block content
             h1 Welcome to TruckIt!
 
     div(class="container demo")
-
-
         div(class="panel-group" id="accordion" role="tablist" aria-multiselectable="true")
+          if(false)
             each truck in trucks
                 div(class="panel panel-default")
                     div(class="panel-heading" role="tab" id="panel"+ truck._id)
@@ -111,7 +119,6 @@ block content
                     div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
                         div(class="panel-body")
                           ul.list-group
-                            console.log(window.atob(localStorage.token))
                             each item in truck.menu
                               li.list-group-item.justify-content-between
                                 | #{item.name}
@@ -124,18 +131,35 @@ block content
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
-                        button.btn.btn-info.right(id = truck._id type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
+                          button.btn.btn-info(class='col-md-3 .col-md-offset-3' id='truck._id' type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
+          else
+            each truck in trucks
+              div(class="panel panel-default")
+                  div(class="panel-heading" role="tab" id="panel"+ truck._id)
+                      h4(class="panel-title")
+                          a(role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
+                              i(class="more-less glyphicon glyphicon-plus")
+                              Collapsible #{truck.companyName}
+                  div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
+                      div(class="panel-body")
+                        ul.list-group
+                          each item in truck.menu
+                            li.list-group-item.justify-content-between
+                              | #{item.name}
+                              | $#{item.price}
+                              .input-group
+                                  span(class='input-group-btn')
+                                      button.btn.btn-danger.btn-number(qid=item._id, type='button', data-type='minus', data-field='quant[2]')
+                                          span.glyphicon.glyphicon-minus
+                                  input.form-control.input-number(id=item._id, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
+                                  span.input-group-btn
+                                      button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
+                                          span.glyphicon.glyphicon-plus
+                        button.btn.btn-info(class='col-md-3 .col-md-offset-3' id='truck._id' type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
 
-    div(class="container")
-            <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
-            div(id="cart-modal" class="modal fade" aria-hidden='true')
-                div(class="modal-content")
-                    div(class="modal-header")
-                        button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
-                        h4(class="modal-title" id="myModalLabel") Review Your Order!
-                    div(class="modal-body")
-                        div(class="row")
-                            button(type="submit" class="btn btn-success btn-block" onclick='sendCart()') Place Order
+
+
+
 
 block postscript
     script if (localStorage.token) loginInit(JSON.parse(atob(localStorage.token.split('.')[1])));
