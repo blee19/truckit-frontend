@@ -51,8 +51,8 @@ function loginInit(info) {
 	console.log("successfully logged in");
 	// greet
 	if (info.firstName || info.email) {
-		var greeting = document.createElement('div');
-		greeting.setAttribute('class', 'navbar-item');
+		var greeting = document.createElement('navbar-left');
+		greeting.setAttribute('class', 'h2');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
 		if (info.isAdmin) {
 			// var users = document.createElement('a');
@@ -67,7 +67,7 @@ function loginInit(info) {
    //          pending.onclick = fetchPending();
    //          navbar.insertBefore(pending, navbar.firstChild);
 		}
-		navbar.appendChild(greeting, navbar.firstChild);
+		navbar.appendChild(greeting);
 
 	}
 
@@ -77,9 +77,10 @@ function loginInit(info) {
     var elem = document.getElementById('login');
     elem.parentNode.removeChild(elem);
 
-	var logout = document.createElement('a');
-	logout.setAttribute('class', 'quiet-link navbar-item');
-	logout.href = '/logout';
+	var logout = document.createElement('button');
+	logout.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
+	logout.setAttribute('id', 'logout');
+	logout.setAttribute('onclick', 'location.href = "/logout"')
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 
