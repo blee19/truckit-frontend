@@ -2,14 +2,14 @@ extends template
 
 block content
     <!-- Navbar -->
-    nav(class='navbar navbar-toggleable-md navbar-inverse success' id='navbar')
-        a(class='navbar-left' href='#')
+    nav(class='navbar navbar-toggleable-md navbar-inverse success' id='navbar' style="padding: 15px")
+        a(class='navbar-left' href='/')
             img(src= 'TruckItLogo.PNG' width='100' height=''  alt='')
-        a(class='navbar-brand' href='#') Truck It!
+        a(class='h1' href='/') Truck It!
 
         <!-- Trigger the modal with a button -->
-        button(type="button" class="btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
-        button(type="button" class="btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#register-modal") Register
+        button(id="login" type="button" class="button btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
+        button(id="register" type="button" class="button btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#register-modal") Register
 
         div(class="container")
           <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
