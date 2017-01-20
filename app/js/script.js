@@ -29,14 +29,17 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
-	
+
 	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
 	loginInit(payload);
 }
 
 function loginInit(info) {
 	var navbar = document.getElementById('navbar').childNodes[1];
-
+	var itemOptions = document.getElementsByClassName('user-view');
+	for(var i = 0; i < itemOptions.length; i++) {
+		itemOptions[i] = "<label class=\"toggler checkbox-inline\"><div class=\"toggle btn btn-default off\" data-toggle=\"toggle\" style=\"width: 39.3333px; height: 14.2222px;\"><input type=\"checkbox\" data-toggle=\"toggle\"><div class=\"toggle-group\"><label class=\"btn btn-primary toggle-on\">On</label><label class=\"btn btn-default active toggle-off\">Off</label><span class=\"toggle-handle btn btn-default\"></span></div></div></label>"
+	}
 	console.log("successfully logged in");
 	console.log("payload 2: " + info);
 	// greet
@@ -61,7 +64,7 @@ function loginInit(info) {
     elem.parentNode.removeChild(elem);
     var elem = document.getElementById('login');
     elem.parentNode.removeChild(elem);
-	
+
 	var logout = document.createElement('a');
 	logout.setAttribute('class', 'quiet-link navbar-item');
 	logout.href = '/logout';
