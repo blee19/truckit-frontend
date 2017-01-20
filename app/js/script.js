@@ -34,12 +34,20 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	if(payload["isAdmin"]){
+		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
+			var userViewClass = (document.getElementsByClassName("user-view")[i]).classList;
+			userViewClass.add("hidden");
+			var adminViewClass = (document.getElementsByClassName("admin-view")[i]).classList;
+			adminViewClass.remove("hidden");
+
+		}
+	}
 	loginInit(payload);
 }
 
 function loginInit(info) {
 	var navbar = document.getElementById('navbar');
-
 	console.log("successfully logged in");
 	// greet
 	if (info.firstName || info.email) {
@@ -62,7 +70,7 @@ function loginInit(info) {
     elem.parentNode.removeChild(elem);
     var elem = document.getElementById('login');
     elem.parentNode.removeChild(elem);
-	
+
 	var logout = document.createElement('a');
 	logout.setAttribute('class', 'quiet-link navbar-item');
 	logout.href = '/logout';
