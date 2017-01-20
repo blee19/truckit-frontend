@@ -1,18 +1,10 @@
 var modal = document.getElementsByClassName('modal')[0];
-var register = document.getElementById('register-modal');
-var login = document.getElementById('login-modal');
 var jumbotron = document.getElementsByClassName('jumbotron');
 var form = document.forms[0];
 var activeTrucks = [];
 
-
-document.body.onclick = function(e) {
-	if (e.target === modal)
-		modal.style.display = '';
-}
-
 function login() {
-	var form = document.forms[0];
+	var form = document.forms[1];
 	displayError('');
 	var emptyFields = checkRequired(form);
 	if (emptyFields.length)
@@ -21,7 +13,6 @@ function login() {
 		email: form.email.value,
 		password: form.password.value
 	};
-	
 	fetch('/login', {
 		headers: { 'Content-Type': 'application/json' },
 		method: 'POST',
@@ -36,34 +27,39 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	console.log(payload);
 	loginInit(payload);
 }
 
 function loginInit(info) {
-	var navbar = document.getElementById('navbar').childNodes[0];
-	
+	var navbar = document.getElementById('navbar').childNodes[1];
+	console.log("successfully logged in");
+	console.log("payload: " + info);
 	// greet
 	if (info.firstName || info.email) {
+		console.log(info.firstName);
 		var greeting = document.createElement('div');
 		greeting.setAttribute('class', 'navbar-item');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
-		if (info.isAdmin) {
-			var items = document.createElement('a');
-			items.setAttribute('class', 'quiet-link navbar-item');
-			items.href = '/admin/items';
-			items.innerHTML = 'Manage Items'
-			var users = document.createElement('a');
-			users.setAttribute('class', 'quiet-link navbar-item');
-			users.href = '/admin/users';
-			users.innerHTML = 'Manage Users'
-			navbar.insertBefore(users, navbar.firstChild);
-			navbar.insertBefore(items, navbar.firstChild);
-		}
+		// if (info.isAdmin) {
+		// 	var items = document.createElement('a');
+		// 	items.setAttribute('class', 'quiet-link navbar-item');
+		// 	items.href = '/admin/items';
+		// 	items.innerHTML = 'Manage Items'
+		// 	var users = document.createElement('a');
+		// 	users.setAttribute('class', 'quiet-link navbar-item');
+		// 	users.href = '/admin/users';
+		// 	users.innerHTML = 'Manage Users'
+		// 	navbar.insertBefore(users, navbar.firstChild);
+		// 	navbar.insertBefore(items, navbar.firstChild);
+		// }
 		navbar.insertBefore(greeting, navbar.firstChild);
+
 	}
-	
+	console.log("right before for loop")
 	// replace register/login with logout
 	for (var i = 0; i < navbar.childNodes.length; i++) {
+		console.log("first line in for loop")
 		var c = navbar.childNodes[i];
 		if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
 			c.style.display = 'none';
@@ -97,7 +93,7 @@ function register() {
 	}
 	if (errorMessage)
 		return displayError(errorMessage.substr(6));
-	
+
 	fetch('/register', {
 		headers: {
 			'Content-Type': 'application/json'
@@ -321,7 +317,7 @@ function populatePendingPage(pending) {
 function adminErrorHandler(err, target) {
 	if (err.status && err.status >= 400 && err.status < 500)
 		return window.location = '/';
-	
+
 	var error = document.createElement('h2');
 	error.setAttribute('class', 'error center');
 	error.innerHTML = 'Error fetching data';
@@ -340,7 +336,7 @@ function submitItem() {
 	if (emptyFields.length)
 		return emptyFields.forEach(error);
 	var data = getFormData(form);
-	
+
 	if (!data.id) {
 		fetch('/admin/items', {
 			headers: headers(),
@@ -436,7 +432,7 @@ function buy(id, quantity) {
 		return modal.style.display = 'block';
 	quantity = quantity || 1;
 	console.log(id);
-	
+
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
@@ -472,13 +468,11 @@ function hideModal() { modal.style.display = ''; }
 // ==========================================================
 function renderIndex(){
     fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
-    .then(function(res) {
-        console.log("made it through");
-        if (!res.ok)  
-            return adminErrorHandler(res, document.getElementById('items'));
-        res.render().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
-        console.log(activeTrucks);
-    }).catch(adminErrorHandler);
+        .then(function(res) {
+            if (!res.ok) return
+                //return adminErrorHandler(res, document.getElementById('items'));
+            res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
+        }).catch(adminErrorHandler);
     var ul = dropdowns.createElement("ul");  // Create with DOM
     ul.class = "list-group";
     for(var i = 0; i<activeTrucks[0].length; i++){
@@ -506,4 +500,85 @@ function renderRegister(){
 //         }).catch(adminErrorHandler);
 //     register.show();
 // }
+$(document).on('click', '.btn-number', function (e) {
+	console.log("button was hit");
+	e.preventDefault();
 
+	itemName  = $(this).attr('qid');
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+	console.log(itemName);
+    var input = $("input[id='"+itemName+"']");
+
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('min')) {
+                return;
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+				return;
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+});
+$(document).on('focusin', '.input-number', function (e) {
+	console.log("focus thing is working");
+   $(this).data('oldValue', $(this).val());
+});
+
+$(document).on('change', '.input-number', function (e) {
+	console.log("reset is working");
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+
+
+});
+$(document).on('keydown', '.input-number', function (e) {
+		console.log("keydown thing is working")
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+});
+
+$(document).on('click', "#testbtn", function() {
+console.log("test button things works");
+});

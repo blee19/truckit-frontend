@@ -4,11 +4,8 @@ const config = require('../app/models/config');
 
 router.get('/', (req, res, next) => {
     request.get(config.apiUrl + '/trucks', (err, response, body) => {
-        console.log("index");
-        if (!err && response.statusCode == 200){
-            console.log(body);
+        if (!err && response.statusCode == 200)
             return res.render('index', {trucks: JSON.parse(body)});
-        }
         else return res.render('index', {trucks: []});
     });
 });
