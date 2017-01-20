@@ -117,11 +117,10 @@ block content
                                 | $#{item.price}
                                 .input-group
                                     span.input-group-btn
-                                        button.btn.btn-danger.btn-number(type='button', data-type='minus', data-field='quant[2]')
+                                        button(class="btn btn-danger btn-number" type='button', data-type='minus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-minus
                                     input.form-control.input-number(type='text', name='quant[2]', value='0', min='0', max='100' width = "100")
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
-                        button.btn.btn-info.left(type='button' onclick = 'createCart()') Place Order
-                                 
+                        button.btn.btn-info.right(type='button' onclick='createCart()') Place Order

@@ -494,9 +494,9 @@ function renderRegister(){
 //         }).catch(adminErrorHandler);
 //     register.show();
 // }
-
-$('.btn-number').click(function(e){
-    e.preventDefault();
+$(document).on('click', '.btn-number', function (e) {
+	console.log("button was hit");
+	e.preventDefault();
 
     fieldName = $(this).attr('data-field');
     type      = $(this).attr('data-type');
@@ -526,11 +526,13 @@ $('.btn-number').click(function(e){
         input.val(0);
     }
 });
-$('.input-number').focusin(function(){
+$(document).on('focusin', '.input-number', function (e) {
+	console.log("focus thing is working");
    $(this).data('oldValue', $(this).val());
 });
-$('.input-number').change(function() {
 
+$(document).on('change', '.input-number', function (e) {
+	console.log("reset is working");
     minValue =  parseInt($(this).attr('min'));
     maxValue =  parseInt($(this).attr('max'));
     valueCurrent = parseInt($(this).val());
@@ -551,7 +553,8 @@ $('.input-number').change(function() {
 
 
 });
-$(".input-number").keydown(function (e) {
+$(document).on('keydown', '.input-number', function (e) {
+		console.log("keydown thing is working")
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
              // Allow: Ctrl+A
