@@ -25,9 +25,8 @@ router.post('/buy', (req, res, next) => {
         return res.sendStatus(400);
     }
     console.log('req.body:', req.body);
-    
     request.post({
-        url: config.apiUrl + '/orders/',
+        url: config.apiUrl + '/orders',
         headers: { 'x-access-token': req.headers['x-access-token'] },
         form: req.body
     }).pipe(res);

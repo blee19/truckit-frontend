@@ -2,6 +2,7 @@
 
 text-color = #000
 button-color = #000
+mobile-width = 480px
 
 *
   box-sizing border-box
@@ -153,10 +154,17 @@ h1
   background-color button-color-transparent-alt
   background-color button-color-transparent
   cursor pointer
-@media only screen and (min-width: mobile-width)
+
+
+@media only screen and (max-width: mobile-width)
   .navbar-item
     display inline-block
-
+  .title
+    font-size: 28px
+  h1
+    font-size: 36px
+  h2
+    font-size: 28px
 
 .form
   width 90%
