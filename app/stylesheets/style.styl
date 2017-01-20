@@ -1,12 +1,6 @@
 @require "helpers"
 
 text-color = #000
-button-color = rgb(200, 200, 200)
-button-color-transparent = rgba(200, 200, 200, .7)
-button-color-transparent-alt = rgb(220, 220, 220)
-mobile-width = 600px
-default-border = 1px solid #888
-
 
 *
   box-sizing border-box
@@ -94,6 +88,7 @@ html
   display inline-block
   text-align center
   margin .7rem 1rem
+>>>>>>> e10e4bf37b7e85be41f1b63c6ba8570f750e5135
 
 .error
   color red
@@ -103,7 +98,6 @@ html
   background-color #d00
 .warning:hover
   background-color #f00
-
 
 #navbar
   background-color #00000
@@ -227,14 +221,6 @@ html
   font-size 18px
   line-height 2rem
 
-.half
-  display block
-  width 100%
-@media only screen and (min-width: mobile-width)
-  .half
-    display inline-block
-    width 50%
-
 .hidden
   display none
 
@@ -245,7 +231,6 @@ html
   text-align left
   padding 1rem 0
 .modal
-  display none
   position fixed
   left 0
   top 0
@@ -262,3 +247,4 @@ html
   border default-border
   background-color white
   border-radius 5px
+  text-align center

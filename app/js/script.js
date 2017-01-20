@@ -3,6 +3,8 @@ var jumbotron = document.getElementsByClassName('jumbotron');
 var form = document.forms[0];
 var activeTrucks = [];
 
+//renderIndex();
+
 function login() {
 	var form = document.forms[1];
 	displayError('');
@@ -27,46 +29,52 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	console.log(payload);
 	loginInit(payload);
 }
 
 function loginInit(info) {
-	var navbar = document.getElementById('navbar').childNodes[0];
-
+	var navbar = document.getElementById('navbar').childNodes[1];
+	console.log("successfully logged in");
+	console.log("payload: " + info);
 	// greet
 	if (info.firstName || info.email) {
+		console.log(info.firstName);
 		var greeting = document.createElement('div');
 		greeting.setAttribute('class', 'navbar-item');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
-		if (info.isAdmin) {
-			var items = document.createElement('a');
-			items.setAttribute('class', 'quiet-link navbar-item');
-			items.href = '/admin/items';
-			items.innerHTML = 'Manage Items'
-			var users = document.createElement('a');
-			users.setAttribute('class', 'quiet-link navbar-item');
-			users.href = '/admin/users';
-			users.innerHTML = 'Manage Users'
-			navbar.insertBefore(users, navbar.firstChild);
-			navbar.insertBefore(items, navbar.firstChild);
-		}
+		// if (info.isAdmin) {
+		// 	var items = document.createElement('a');
+		// 	items.setAttribute('class', 'quiet-link navbar-item');
+		// 	items.href = '/admin/items';
+		// 	items.innerHTML = 'Manage Items'
+		// 	var users = document.createElement('a');
+		// 	users.setAttribute('class', 'quiet-link navbar-item');
+		// 	users.href = '/admin/users';
+		// 	users.innerHTML = 'Manage Users'
+		// 	navbar.insertBefore(users, navbar.firstChild);
+		// 	navbar.insertBefore(items, navbar.firstChild);
+		// }
 		navbar.insertBefore(greeting, navbar.firstChild);
-	}
 
-	// replace register/login with logout
-	for (var i = 0; i < navbar.childNodes.length; i++) {
-		var c = navbar.childNodes[i];
-		if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
-			c.style.display = 'none';
 	}
-	var logout = document.createElement('a');
-	logout.setAttribute('class', 'quiet-link navbar-item');
-	logout.href = '/logout';
-	logout.innerHTML = 'Logout';
-	navbar.appendChild(logout);
+	console.log("right before for loop")
+	// replace register/login with logout
+	// for (var i = 0; i < navbar.childNodes.length; i++) {
+	// 	console.log("first line in for loop")
+	// 	var c = navbar.childNodes[i];
+	// 	if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
+	// 		c.style.display = 'none';
+	// }
+	// var logout = document.createElement('a');
+	// logout.setAttribute('class', 'quiet-link navbar-item');
+	// logout.href = '/logout';
+	// logout.innerHTML = 'Logout';
+	// navbar.appendChild(logout);
 }
 
 function register() {
+	console.log("TESTT");
 	var form = document.forms[0];
 	displayError('');
 	clearError(form.password);
@@ -463,25 +471,63 @@ function hideModal() { modal.style.display = ''; }
 function renderIndex(){
     fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
         .then(function(res) {
-            if (!res.ok) return
+            if (!res.ok) return;
                 //return adminErrorHandler(res, document.getElementById('items'));
-            res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
+            activeTrucks = JSON.parse(res);
+            console.log(activeTrucks);
+            return res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
         }).catch(adminErrorHandler);
-    var ul = dropdowns.createElement("ul");  // Create with DOM
-    ul.class = "list-group";
-    for(var i = 0; i<activeTrucks[0].length; i++){
-        var list = ul.createElement("li");
-        list.class = "list-group-item justify-content-between";
-        list.innerHTML = activeTrucks[0].menu[i].name;
-        var select = list.createElement("span");
-        select.innherHTML = "Order"
-    }
+    
+    // var ul = dropdowns.createElement("ul");  // Create with DOM
+    // ul.class = "list-group";
+    // for(var i = 0; i<activeTrucks[0].length; i++){
+    //     var list = ul.createElement("li");
+    //     list.class = "list-group-item justify-content-between";
+    //     list.innerHTML = activeTrucks[0].menu[i].name;
+    //     var select = list.createElement("span");
+    //     select.innherHTML = "Order"
+    // }
     jumbotron.show();
     dropdowns.show();
 }
 
 function renderRegister(){
     register.show();
+}
+
+function createCart(){
+    var selected;
+    var truckId = event.target.id;
+    console.log(activeTrucks);
+    //find truck where id = truck id
+    //FETCH REQUEST TO GET TRUCK OBJECT to get menu
+    var truck;
+    for(var i=0; i<activeTrucks.length; i++){
+        console.log("active: " + activeTrucks[i]);
+        if(activeTrucks[i]._id === truckId){
+            truck = activeTrucks[i];
+            console.log(truck);
+        }
+    }
+    for(var i=0; i<truck.menu.length; i++){
+        var quant = $('#'+truck.menu[i]._id).val();
+        if ($('#'+quant).val() !== 0){
+            selected.push({
+                item: {
+                    price: $('#'+truck.menu[i]._id+'price').val(),
+                    name: $('#'+truck.menu[i]._id+'name').val(),
+                    quantity: quant
+                }
+            })
+        }
+
+    }
+    var cart = {
+        truck: truckId,
+        purchasedItems: selected,
+        paid: new Date
+    }
+
 }
 
 // function renderMenu(truckId){
@@ -494,6 +540,7 @@ function renderRegister(){
 //         }).catch(adminErrorHandler);
 //     register.show();
 // }
+
 $(document).on('click', '.btn-number', function (e) {
 	console.log("button was hit");
 	e.preventDefault();
