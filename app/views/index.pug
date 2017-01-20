@@ -137,3 +137,6 @@ block content
                         div(class="row")
                             button(type="submit" class="btn btn-success btn-block" onclick='sendCart()') Place Order
 
+block postscript
+    script if (localStorage.token) loginInit(JSON.parse(atob(localStorage.token.split('.')[1])));
+

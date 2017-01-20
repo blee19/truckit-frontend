@@ -60,17 +60,17 @@ function loginInit(info) {
 	}
 	console.log("right before for loop")
 	// replace register/login with logout
-	for (var i = 0; i < navbar.childNodes.length; i++) {
-		console.log("first line in for loop")
-		var c = navbar.childNodes[i];
-		if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
-			c.style.display = 'none';
-	}
-	var logout = document.createElement('a');
-	logout.setAttribute('class', 'quiet-link navbar-item');
-	logout.href = '/logout';
-	logout.innerHTML = 'Logout';
-	navbar.appendChild(logout);
+	// for (var i = 0; i < navbar.childNodes.length; i++) {
+	// 	console.log("first line in for loop")
+	// 	var c = navbar.childNodes[i];
+	// 	if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
+	// 		c.style.display = 'none';
+	// }
+	// var logout = document.createElement('a');
+	// logout.setAttribute('class', 'quiet-link navbar-item');
+	// logout.href = '/logout';
+	// logout.innerHTML = 'Logout';
+	// navbar.appendChild(logout);
 }
 
 function register() {
