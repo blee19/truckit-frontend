@@ -89,7 +89,7 @@ block content
                                         label
                                             <input type="checkbox" name="remember" id="remember"> Remember login
                                         p(class="help-block") (if this is a private device)
-                                    button(type="submit" class="btn btn-success btn-block" onclick='login()') Login
+                                    button(class="btn btn-success btn-block" onclick='login()') Login
 
 
     <!-- jumbotron-->
@@ -139,4 +139,3 @@ block content
 
 block postscript
     script if (localStorage.token) loginInit(JSON.parse(atob(localStorage.token.split('.')[1])));
-
