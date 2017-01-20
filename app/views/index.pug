@@ -60,7 +60,7 @@ block content
                                       label
                                           <input type="checkbox" name="remember" id="remember"> Remember login
                                       p(class="help-block") (if this is a private device)
-                                  button(type="button" class="btn btn-success btn-block" onclick='register()') Register
+                                  button(type="button" class="btn btn-success" onclick='register()') Register
 
     div(class="container")
         <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
@@ -88,7 +88,7 @@ block content
                                     label
                                         <input type="checkbox" name="remember" id="remember"> Remember login
                                     p(class="help-block") (if this is a private device)
-                                button(id="modal-form-submit" class="btn btn-success btn-block" data-dismiss="modal" type="button" onclick='login("button")') Login
+                                button(id="modal-form-submit" class="btn btn-success" data-dismiss="modal" type="button" onclick='login("button")') Login
         div(class="container")
                 <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
                 div(id="cart-modal" class="modal fade" aria-hidden='true')
@@ -131,7 +131,7 @@ block content
                                         button.btn.btn-danger.btn-number(qid=item._id, type='button', data-type='minus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-minus
                                     -var s = truck._id + item.name
-                                    input.form-control.input-number(id=s, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
+                                    input.form-control.input-number(id=s, bid=item._id type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus

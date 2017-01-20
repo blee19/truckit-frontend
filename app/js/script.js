@@ -83,6 +83,12 @@ function loginInit(info) {
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 
+	var history = document.createElement('a');
+	history.setAttribute('class', 'quiet-link navbar-item');
+	history.href = '/history';
+	history.innerHTML = 'History';
+	navbar.appendChild(history);
+
 
 }
 
@@ -93,7 +99,7 @@ function submitOnEnterKey(submitFunction, targetForm) {
     var children = targetForm.childNodes;
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
-        if (child.getAttribute('class') === 'form') 
+        if (child.getAttribute('class') === 'form')
             submitOnEnterKey(submitFunction, child);
         var type = child.getAttribute('type');
         if (type === 'text' || type === 'email' || type === 'password' ||
@@ -105,14 +111,18 @@ function submitOnEnterKey(submitFunction, targetForm) {
 function register() {
 	console.log("TEST");
 	var form = document.forms[0];
+	console.log("TEST2");
 	displayError('');
+	console.log("TEST3")
 	clearError(form.password);
-	clearError(form.passwordConfirm);
+	console.log("TEST4")
+	clearError(form.repassword);
+	console.log("TEST5")
 	var data = getFormData(form);
-	if (data.password !== form.passwordConfirm.value) {
+	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
 		error(form.password);
-		error(form.passwordConfirm);
+		error(form.repassword);
 	}
 	else var errorMessage = '';
 	var emptyFields = checkRequired(form);
@@ -544,6 +554,7 @@ function createCart(){
             paid: new Date,
             totalPrice: totalPrice
         }; 
+
     console.log(cart);
     $("#cart-modal").modal();
     //onlcik ord
@@ -558,7 +569,7 @@ function createCart(){
     //         if (!res.ok) return;
     //             //return adminErrorHandler(res, document.getElementById('trucks'));//will probably error
     //         res.json()
-    //         .then(function(truckJson) { 
+    //         .then(function(truckJson) {
     //             console.log(truckJson);
     //             for(var i=0; i<truckJson.menu.length; i++){
     //                 var quant = $('#'+truck.menu[i]._id).val();
@@ -577,10 +588,10 @@ function createCart(){
     //                 truck: truckId,
     //                 purchasedItems: selected,
     //                 paid: new Date
-    //             } 
+    //             }
     //         })
     //     }).catch(adminErrorHandler);
-    
+
 
     // for(var i=0; i<activeTrucks.length; i++){
     //     console.log("active: " + activeTrucks[i]);
@@ -611,8 +622,7 @@ $(document).on('click', '.btn-number', function (e) {
     fieldName = $(this).attr('data-field');
     type      = $(this).attr('data-type');
 	console.log(itemName);
-    var input = $("input[id='"+itemName+"']");
-
+    var input = $("input[bid='"+itemName+"']");
     var currentVal = parseInt(input.val());
     if (!isNaN(currentVal)) {
         if(type == 'minus') {

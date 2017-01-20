@@ -76,8 +76,10 @@ router.get('/admin/getusers', (req, res, next) => {
     }).pipe(res);
 });
 
-router.get('/admin/pending', (req, res, next) => {
-    return res.render('pending');
+router.get('/history', (req, res, next) => {
+    request.get(config.apiUrl + '/orders/' + req.body.id, {
+        headers: {'x-access-token': req.headers['x-access-token']}
+    }).pipe(res);
 });
 
 router.get('/admin/getpending', (req, res, next) => {
