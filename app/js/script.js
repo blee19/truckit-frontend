@@ -105,11 +105,15 @@ function submitOnEnterKey(submitFunction, targetForm) {
 function register() {
 	console.log("TEST");
 	var form = document.forms[0];
+	console.log("TEST2");
 	displayError('');
+	console.log("TEST3")
 	clearError(form.password);
-	clearError(form.passwordConfirm);
+	console.log("TEST4")
+	clearError(form.repassword);
+	console.log("TEST5")
 	var data = getFormData(form);
-	if (data.password !== form.passwordConfirm.value) {
+	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
 		error(form.password);
 		error(form.passwordConfirm);
@@ -609,7 +613,7 @@ $(document).on('click', '.btn-number', function (e) {
     fieldName = $(this).attr('data-field');
     type      = $(this).attr('data-type');
 	console.log(itemName);
-    var input = $("input[id='"+itemName+"']");
+    var input = $("input[bid='"+itemName+"']");
 
     var currentVal = parseInt(input.val());
     if (!isNaN(currentVal)) {
