@@ -84,12 +84,11 @@ function loginInit(info) {
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 
-	var history = document.createElement('a');
-	history.setAttribute('class', 'quiet-link navbar-item');
+	var history = document.createElement('button');
+	history.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
 	history.innerHTML = 'History';
 	history.setAttribute('data-target','#history-modal')
 	history.setAttribute('data-toggle','modal')
-	history.setAttribute('onclick', '')
 	navbar.appendChild(history);
 }
 
