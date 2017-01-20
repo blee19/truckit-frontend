@@ -465,17 +465,18 @@ function renderIndex(){
         .then(function(res) {
             if (!res.ok) return
                 //return adminErrorHandler(res, document.getElementById('items'));
+            activeTrucks = JSON.parse(res);
             res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
         }).catch(adminErrorHandler);
-    var ul = dropdowns.createElement("ul");  // Create with DOM
-    ul.class = "list-group";
-    for(var i = 0; i<activeTrucks[0].length; i++){
-        var list = ul.createElement("li");
-        list.class = "list-group-item justify-content-between";
-        list.innerHTML = activeTrucks[0].menu[i].name;
-        var select = list.createElement("span");
-        select.innherHTML = "Order"
-    }
+    // var ul = dropdowns.createElement("ul");  // Create with DOM
+    // ul.class = "list-group";
+    // for(var i = 0; i<activeTrucks[0].length; i++){
+    //     var list = ul.createElement("li");
+    //     list.class = "list-group-item justify-content-between";
+    //     list.innerHTML = activeTrucks[0].menu[i].name;
+    //     var select = list.createElement("span");
+    //     select.innherHTML = "Order"
+    // }
     jumbotron.show();
     dropdowns.show();
 }
@@ -484,7 +485,39 @@ function renderRegister(){
     register.show();
 }
 
-function 
+function createCart(){
+    var selected;
+    var truckId = event.target.id;
+    console.log(activeTrucks);
+    //find truck where id = truck id
+    var truck;
+    for(var i=0; i<activeTrucks.length; i++){
+        console.log(activeTrucks[i]);
+        if(activeTrucks[i]._id === truckId){
+            truck = activeTrucks[i];
+            console.log(truck);
+        }
+    }
+    for(var i=0; i<truck.menu.length; i++){
+        var quant = $('#'+truck.menu[i]._id+'quantity').val();
+        if ($('#'+quant).val() !== 0){
+            selected.push({
+                item: {
+                    price: $('#'+truck.menu[i]._id+'price').val(),
+                    name: $('#'+truck.menu[i]._id+'name').val(),
+                    quantity: quant
+                }
+            })
+        }
+
+    }
+    var cart = {
+        truck: truckId,
+        purchasedItems: selected,
+        paid: new Date
+    }
+
+}
 
 // function renderMenu(truckId){
 //     if(!localStorage.token) renderIndex();
@@ -496,42 +529,42 @@ function
 //         }).catch(adminErrorHandler);
 //     register.show();
 // }
-$(document).on('click', '.btn-number', function (e) {
-	console.log("button was hit");
-	e.preventDefault();
+// $(document).on('click', '.btn-number', function (e) {
+// 	console.log("button was hit");
+// 	e.preventDefault();
 
-    fieldName = $(this).attr('data-field');
-    type      = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
-    var currentVal = parseInt(input.val());
-    if (!isNaN(currentVal)) {
-        if(type == 'minus') {
+//     fieldName = $(this).attr('data-field');
+//     type      = $(this).attr('data-type');
+//     var input = $("input[name='"+fieldName+"']");
+//     var currentVal = parseInt(input.val());
+//     if (!isNaN(currentVal)) {
+//         if(type == 'minus') {
 
-            if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
-            }
+//             if(currentVal > input.attr('min')) {
+//                 input.val(currentVal - 1).change();
+//             }
+//             if(parseInt(input.val()) == input.attr('min')) {
+//                 $(this).attr('disabled', true);
+//             }
 
-        } else if(type == 'plus') {
+//         } else if(type == 'plus') {
 
-            if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('max')) {
-                $(this).attr('disabled', true);
-            }
+//             if(currentVal < input.attr('max')) {
+//                 input.val(currentVal + 1).change();
+//             }
+//             if(parseInt(input.val()) == input.attr('max')) {
+//                 $(this).attr('disabled', true);
+//             }
 
-        }
-    } else {
-        input.val(0);
-    }
-});
-$(document).on('focusin', '.input-number', function (e) {
-	console.log("focus thing is working");
-   $(this).data('oldValue', $(this).val());
-});
+//         }
+//     } else {
+//         input.val(0);
+//     }
+// });
+// $(document).on('focusin', '.input-number', function (e) {
+// 	console.log("focus thing is working");
+//    $(this).data('oldValue', $(this).val());
+// });
 
 // $(document).on('change', '.input-number', function (e) {
 // 	console.log("reset is working");
@@ -555,19 +588,19 @@ $(document).on('focusin', '.input-number', function (e) {
 
 
 // });
-$(document).on('keydown', '.input-number', function (e) {
-		console.log("keydown thing is working")
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-             // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) ||
-             // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-    });
+// $(document).on('keydown', '.input-number', function (e) {
+// 		console.log("keydown thing is working")
+//         // Allow: backspace, delete, tab, escape, enter and .
+//         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+//              // Allow: Ctrl+A
+//             (e.keyCode == 65 && e.ctrlKey === true) ||
+//              // Allow: home, end, left, right
+//             (e.keyCode >= 35 && e.keyCode <= 39)) {
+//                  // let it happen, don't do anything
+//                  return;
+//         }
+//         // Ensure that it is a number and stop the keypress
+//         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+//             e.preventDefault();
+//         }
+//     });

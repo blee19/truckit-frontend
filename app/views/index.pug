@@ -103,7 +103,7 @@ block content
         div(class="panel-group" id="accordion" role="tablist" aria-multiselectable="true")
             each truck in trucks
                 div(class="panel panel-default")
-                    div(class="panel-heading" role="tab" id=""+ truck._id)
+                    div(class="panel-heading" role="tab" id="panel"+ truck._id)
                         h4(class="panel-title")
                             a(role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
                                 i(class="more-less glyphicon glyphicon-plus")
@@ -123,16 +123,16 @@ block content
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
-                        button.btn.btn-info.right(type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Place Order
+                        button.btn.btn-info.right(id = truck._id type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
 
-    //- div(class="container")
-    //-         <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
-    //-         div(id="cart-modal" class="modal fade" aria-hidden='true')
-    //-             div(class="modal-content")
-    //-                 div(class="modal-header")
-    //-                     button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
-    //-                     h4(class="modal-title" id="myModalLabel") Review Your Order!
-    //-                 div(class="modal-body")
-    //-                     div(class="row")
-    //-                         button(type="submit" class="btn btn-success btn-block" onclick='sendCart()') Place Order
+    div(class="container")
+            <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+            div(id="cart-modal" class="modal fade" aria-hidden='true')
+                div(class="modal-content")
+                    div(class="modal-header")
+                        button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                        h4(class="modal-title" id="myModalLabel") Review Your Order!
+                    div(class="modal-body")
+                        div(class="row")
+                            button(type="submit" class="btn btn-success btn-block" onclick='sendCart()') Place Order
 
