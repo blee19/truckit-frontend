@@ -101,6 +101,16 @@ block content
                             div(class="row")
                                 button(type="submit" class="btn btn-success btn-block" id = 'buy') Place Order
 
+    div(class="container")
+        <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+        div(id="history-modal" class="modal fade" aria-hidden='true')
+            div(class="modal-content")
+                div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                    h4(class="modal-title" id="myModalLabel") Your Order History
+                div(class="modal-body")
+                    div(id="history-list" class="row")
+                        p No Order History Found
 
     <!-- jumbotron-->
     div(class= 'jumbotron')
