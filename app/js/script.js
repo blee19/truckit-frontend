@@ -22,16 +22,13 @@ function login() {
 		body: JSON.stringify(data)
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
-		if (document.getElementById("login-modal").classList.contains("in")) {
-			document.getElementById("modal-form-submit").click();
-		} else {
-			res.json().then(loginSuccess);
-		}
+		res.json().then(loginSuccess);
 	}).catch(errorHandler);
 }
 
 function loginSuccess(res) {
-	if (modal) modal.style.display = '';
+	$("#login-modal").modal("hide");
+	$("#register-modal").modal("hide");
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
 	if(payload["isAdmin"]){
@@ -84,13 +81,32 @@ function loginInit(info) {
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
 
-	var history = document.createElement('a');
-	history.setAttribute('class', 'quiet-link navbar-item');
-	history.href = '/history';
+	var history = document.createElement('button');
+	history.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
 	history.innerHTML = 'History';
+	history.setAttribute('data-target','#history-modal')
+	history.setAttribute('data-toggle','modal')
 	navbar.appendChild(history);
+}
 
-
+function orderHistory() {
+	fetch('/history', {
+		headers: headers(),
+		method: 'GET',
+	}).then(function(res) {
+		if (!res.ok) {
+			var messageBlock = document.createElement("h3");
+			var message = document.createTextNode("No Order History Found")
+			messageBlock.appendChild(message);
+			var modalMessage = document.getElementsById("history-list");
+			modalMessage.appendChild(messageBlock);
+		}
+		if (document.getElementById("history-list")) {
+			document.getElementById("modal-form-submit").click();
+		} else {
+			res.json().then(loginSuccess);
+		}
+	}).catch(errorHandler);
 }
 
 // allows us to submit with enter key
@@ -110,15 +126,10 @@ function submitOnEnterKey(submitFunction, targetForm) {
 }
 
 function register() {
-	console.log("TEST");
 	var form = document.forms[0];
-	console.log("TEST2");
 	displayError('');
-	console.log("TEST3")
 	clearError(form.password);
-	console.log("TEST4")
 	clearError(form.repassword);
-	console.log("TEST5")
 	var data = getFormData(form);
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";

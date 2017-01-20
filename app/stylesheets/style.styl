@@ -2,6 +2,7 @@
 
 text-color = #000
 button-color = #000
+mobile-width = 480px
 
 *
   box-sizing border-box
@@ -10,7 +11,7 @@ html, body
   margin 0
   padding 0
   color text-color
-  font-family futura
+  font-family: 'Cabin', Helvetica, Arial, sans-serif
 
 body
   background: url('background.jpg') no-repeat center center fixed
@@ -25,7 +26,7 @@ html
   border-radius: 0;
   box-shadow: none;
   border-color: #000;
-  background: rgba(7,136,200 0.8);
+  background: rgba(211,211,211, 0.8);
 }
 
 .toggler {
@@ -39,6 +40,10 @@ html
     color: white
 }
 
+a {
+  color #ff6666
+}
+
 a:link {
   text-decoration:  none;
   font-weight: bold;
@@ -46,16 +51,25 @@ a:link {
 
 a:hover {
   font-weight: bold;
-  color: EEAA7B;
+  color: white;
 }
 
-.h1
-  font-size: 40px;
-  text-decoration: none;
+h1
+  font-size: 60px;
   font-weight: bold;
   padding: 15 px;
   padding-top: 20px;
   font-color: #E37222;
+  font-family: 'Lobster', Georgia, Times, serif;
+
+.title
+  font-size: 60px;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 15 px;
+  padding-top: 20px;
+  font-color: #000;
+  font-family: 'Lobster', Georgia, Times, serif;
 
 .panel-default > .panel-heading {
   padding: 0;
@@ -109,6 +123,7 @@ a:hover {
   border 0
   cursor pointer
   background-color #66B9BF
+  font-family: 'Cabin', Helvetica, Arial, sans-serif
 .button:hover
   background-color button-color-transparent-alt
   background-color button-color-transparent
@@ -139,10 +154,17 @@ a:hover {
   background-color button-color-transparent-alt
   background-color button-color-transparent
   cursor pointer
-@media only screen and (min-width: mobile-width)
+
+
+@media only screen and (max-width: mobile-width)
   .navbar-item
     display inline-block
-
+  .title
+    font-size: 28px
+  h1
+    font-size: 36px
+  h2
+    font-size: 28px
 
 .form
   width 90%
@@ -190,5 +212,5 @@ a:hover {
 .jumbotron {
    background: rgb(255, 255, 255); /* This is for ie8 and below */
    background: rgba(255,255,255, 0);
-   font-color: #E37222;
+   color: #dc4d4d
 }

@@ -4,8 +4,8 @@ block content
     <!-- Navbar -->
     nav(class='navbar navbar-toggleable-md navbar-inverse success' id='navbar' style="padding: 15px")
         a(class='navbar-left' href='/')
-            img(src= 'TruckItLogo.PNG' width='100' height=''  alt='')
-        a(style="padding: 1px 15px; line-height: 60px" class='h1' href='/') Truck It!
+            img(src= 'SampleLogo.PNG' width='75' height=''  alt='')
+        a(style="padding: 1px 15px; line-height: 60px" class='title' href='/') TruckIt!
 
         <!-- Trigger the modal with a button -->
         button(id="login" type="button" class="button btn btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
@@ -68,7 +68,7 @@ block content
             div(class="modal-content")
                 div(class="modal-header")
                     button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
-                    h4(class="modal-title" id="myModalLabel") Login to order!
+                    h2(class="modal-title" id="myModalLabel") Login to order!
                 div(id="modal-login" class="modal-body")
                     div(class="row")
                         div(class="well")
@@ -89,7 +89,7 @@ block content
                                     label
                                         <input type="checkbox" name="remember" id="remember"> Remember login
                                     p(class="help-block") (if this is a private device)
-                                button(id="modal-form-submit" class="btn btn-success" data-dismiss="modal" type="button" onclick='login("button")') Login
+                                button(id="modal-form-submit" class="btn btn-success" type="button" onclick='login("button")') Login
         div(class="container")
                 <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
                 div(id="cart-modal" class="modal fade" aria-hidden='true')
@@ -101,6 +101,16 @@ block content
                             div(class="row")
                                 button(type="submit" class="btn btn-success btn-block" id = 'buy' onclick = 'buy()') Place Order
 
+    div(class="container")
+        <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
+        div(id="history-modal" class="modal fade" aria-hidden='true')
+            div(class="modal-content")
+                div(class="modal-header")
+                    button(type="button" class="close" data-dismiss="modal") <span aria-hidden="true"></span>x<span class="sr-only"></span>
+                    h4(class="modal-title" id="myModalLabel") Your Order History
+                div(class="modal-body")
+                    div(id="history-list" class="row")
+                        p No Order History Found
 
     <!-- jumbotron-->
     div(class= 'jumbotron')
