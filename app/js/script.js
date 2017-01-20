@@ -484,6 +484,8 @@ function renderRegister(){
     register.show();
 }
 
+function 
+
 // function renderMenu(truckId){
 //     if(!localStorage.token) renderIndex();
 //     fetch('/getMenu', { headers: { 'x-access-token': localStorage.token } })
@@ -531,28 +533,28 @@ $(document).on('focusin', '.input-number', function (e) {
    $(this).data('oldValue', $(this).val());
 });
 
-$(document).on('change', '.input-number', function (e) {
-	console.log("reset is working");
-    minValue =  parseInt($(this).attr('min'));
-    maxValue =  parseInt($(this).attr('max'));
-    valueCurrent = parseInt($(this).val());
+// $(document).on('change', '.input-number', function (e) {
+// 	console.log("reset is working");
+//     minValue =  parseInt($(this).attr('min'));
+//     maxValue =  parseInt($(this).attr('max'));
+//     valueCurrent = parseInt($(this).val());
 
-    name = $(this).attr('name');
-    if(valueCurrent >= minValue) {
-        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the minimum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
-    if(valueCurrent <= maxValue) {
-        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the maximum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
+//     name = $(this).attr('name');
+//     if(valueCurrent >= minValue) {
+//         $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+//     } else {
+//         alert('Sorry, the minimum value was reached');
+//         $(this).val($(this).data('oldValue'));
+//     }
+//     if(valueCurrent <= maxValue) {
+//         $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+//     } else {
+//         alert('Sorry, the maximum value was reached');
+//         $(this).val($(this).data('oldValue'));
+//     }
 
 
-});
+// });
 $(document).on('keydown', '.input-number', function (e) {
 		console.log("keydown thing is working")
         // Allow: backspace, delete, tab, escape, enter and .
