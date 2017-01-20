@@ -35,7 +35,7 @@ function loginSuccess(res) {
 }
 
 function loginInit(info) {
-	var navbar = document.getElementById('navbar').childNodes[1];
+	var navbar = document.getElementById('navbar');
 
 	console.log("successfully logged in");
 	console.log("payload 2: " + info);
