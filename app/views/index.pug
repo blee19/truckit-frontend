@@ -5,11 +5,11 @@ block content
     nav(class='navbar navbar-toggleable-md navbar-inverse success' id='navbar' style="padding: 15px")
         a(class='navbar-left' href='/')
             img(src= 'TruckItLogo.PNG' width='100' height=''  alt='')
-        a(class='h1' href='/') Truck It!
+        a(style="padding: 1px 15px; line-height: 60px" class='h1' href='/') Truck It!
 
         <!-- Trigger the modal with a button -->
-        button(id="login" type="button" class="button btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
-        button(id="register" type="button" class="button btn btn-info btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#register-modal") Register
+        button(id="login" type="button" class="button btn btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#login-modal") Login
+        button(id="register" type="button" class="button btn btn-lg pull-right navbar-btn" data-toggle="modal" data-target="#register-modal") Register
 
     div(class="container")
       <!-- Modal TODO someone has to clean up this clusterfuck of a modal-->
@@ -108,7 +108,7 @@ block content
 
     div(class="container demo")
         div(class="panel-group" id="accordion" role="tablist" aria-multiselectable="true")
-          if(window)
+          if(!window)
             each truck in trucks
                 div(class="panel panel-default")
                     div(class="panel-heading" role="tab" id="panel"+ truck._id)
@@ -131,13 +131,13 @@ block content
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
-                          button.btn.btn-info(class='col-md-3 .col-md-offset-3' id='truck._id' type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
+                          button.button.btn(class='col-md-3 .col-md-offset-3' id='truck._id' type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
           else
             each truck in trucks
               div(class="panel panel-default")
                   div(class="panel-heading" role="tab" id="panel"+ truck._id)
                       h4(class="panel-title")
-                          a(role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
+                          a(role="button" class="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne")
                               i(class="more-less glyphicon glyphicon-plus")
                               Collapsible #{truck.companyName}
                   div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
