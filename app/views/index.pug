@@ -89,7 +89,7 @@ block content
                                         label
                                             <input type="checkbox" name="remember" id="remember"> Remember login
                                         p(class="help-block") (if this is a private device)
-                                    button(type="submit" class="btn btn-success btn-block" onclick='login()') Login
+                                    button(class="btn btn-success btn-block" onclick='login()') Login
 
 
     <!-- jumbotron-->
@@ -111,17 +111,24 @@ block content
                     div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
                         div(class="panel-body")
                           ul.list-group
-                            console.log(window.atob(localStorage.token))
-                            each item in truck.menu
-                              li.list-group-item.justify-content-between
-                                | #{item.name}
-                                | $#{item.price}
-                                .input-group
-                                    span(class='input-group-btn')
-                                        button.btn.btn-danger.btn-number(qid=item.name, type='button', data-type='minus', data-field='quant[2]')
-                                            span.glyphicon.glyphicon-minus
-                                    input.form-control.input-number(id=item.name, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
-                                    span.input-group-btn
-                                        button.btn.btn-success.btn-number(qid=item.name, type='button', data-type='plus', data-field='quant[2]')
-                                            span.glyphicon.glyphicon-plus
-                        button.btn.btn-info.right(type='button' onclick='createCart()') Place Order
+                            if(false)
+                                each item in truck.menu
+                                  li.list-group-item.justify-content-between
+                                    | #{item.name}
+                                    | $#{item.price}
+                                    .input-group
+                                        span(class='input-group-btn')
+                                            button.btn.btn-danger.btn-number(qid=item.name, type='button', data-type='minus', data-field='quant[2]')
+                                                span.glyphicon.glyphicon-minus
+                                        input.form-control.input-number(id=item.name, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
+                                        span.input-group-btn
+                                            button.btn.btn-success.btn-number(qid=item.name, type='button', data-type='plus', data-field='quant[2]')
+                                                span.glyphicon.glyphicon-plus
+                                    button.btn.btn-info.right(type='button' onclick='createCart()') Place Order
+                            else
+                                each item in truck.menu
+                                  li.list-group-item.justify-content-between
+                                    | #{item.name}
+                                    | $#{item.price}
+                                    input(type="checkbox" data-toggle="toggle")
+                                    Item enable/disable
