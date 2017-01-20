@@ -492,9 +492,9 @@ function buy() {
 }
 
 function buySuccess(res) {
+    $("#cart-modal").modal("hide");
+    $("#purchased-modal").modal();
 	if (!res.ok) return buyError(res);
-	alert('congrats on your purchase');
-	console.log('success!');
 }
 
 function buyError(err) {
