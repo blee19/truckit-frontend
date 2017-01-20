@@ -121,7 +121,7 @@ block content
                           ul.list-group
                             each item in truck.menu
                               li.list-group-item.justify-content-between
-                                | #{item.name}
+                                | #{JSON.stringify(truck.menu)}
                                 | $#{item.price}
                                 .input-group
                                     span(class='input-group-btn')
