@@ -23,12 +23,12 @@ function login() {
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
 		res.json().then(loginSuccess);
-		$("#login-modal").modal("hide");
 	}).catch(errorHandler);
 }
 
 function loginSuccess(res) {
-	if (modal) modal.style.display = '';
+	$("#login-modal").modal("hide");
+	$("#register-modal").modal("hide");
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
 	if(payload["isAdmin"]){
