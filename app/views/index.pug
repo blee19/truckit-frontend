@@ -73,7 +73,7 @@ block content
                     div(class="row")
                         div(class="well")
                             form(id="loginForm")
-                                div(class="form-group")
+                                div(class="form")
                                     label(for="email" class="control-label") Email
                                     input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
                                     span(class="help-block")
@@ -123,7 +123,7 @@ block content
                               li.list-group-item.justify-content-between(id='menuItem')
                                 | #{JSON.stringify(truck.menu)}
                                 | $#{item.price}
-                                .input-group
+                                .input-group.user-view
                                     span(class='input-group-btn')
                                         button.btn.btn-danger.btn-number(qid=item._id, type='button', data-type='minus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-minus

@@ -29,14 +29,13 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
-	
+
 	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
 	loginInit(payload);
 }
 
 function loginInit(info) {
 	var navbar = document.getElementById('navbar');
-
 	console.log("successfully logged in");
 	console.log("payload 2: " + info);
 	// greet
@@ -61,7 +60,7 @@ function loginInit(info) {
     elem.parentNode.removeChild(elem);
     var elem = document.getElementById('login');
     elem.parentNode.removeChild(elem);
-	
+
 	var logout = document.createElement('a');
 	logout.setAttribute('class', 'quiet-link navbar-item');
 	logout.href = '/logout';
