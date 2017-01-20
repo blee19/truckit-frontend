@@ -15,6 +15,10 @@ router.post('/login', (req, res, next) => {
     request.post(config.apiUrl + '/auth/token', { form: req.body }).pipe(res);
 });
 
+router.get('/logout', (req, res, next) => {
+    return res.render('logout');
+});
+
 router.post('/register', (req, res, next) => {
     request.post(config.apiUrl + '/users', {form: req.body}).pipe(res);
 });

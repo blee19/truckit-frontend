@@ -43,34 +43,29 @@ function loginInit(info) {
 		var greeting = document.createElement('div');
 		greeting.setAttribute('class', 'navbar-item');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
-		// if (info.isAdmin) {
-		// 	var items = document.createElement('a');
-		// 	items.setAttribute('class', 'quiet-link navbar-item');
-		// 	items.href = '/admin/items';
-		// 	items.innerHTML = 'Manage Items'
-		// 	var users = document.createElement('a');
-		// 	users.setAttribute('class', 'quiet-link navbar-item');
-		// 	users.href = '/admin/users';
-		// 	users.innerHTML = 'Manage Users'
-		// 	navbar.insertBefore(users, navbar.firstChild);
-		// 	navbar.insertBefore(items, navbar.firstChild);
-		// }
+		if (info.isAdmin) {
+			var users = document.createElement('a');
+			users.setAttribute('class', 'quiet-link navbar-item');
+			users.href = '/admin/users';
+			users.innerHTML = 'Manage Users'
+			navbar.insertBefore(users, navbar.firstChild);
+		}
 		navbar.insertBefore(greeting, navbar.firstChild);
 
 	}
 	console.log("right before for loop")
-	// replace register/login with logout
-	// for (var i = 0; i < navbar.childNodes.length; i++) {
-	// 	console.log("first line in for loop")
-	// 	var c = navbar.childNodes[i];
-	// 	if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
-	// 		c.style.display = 'none';
-	// }
-	// var logout = document.createElement('a');
-	// logout.setAttribute('class', 'quiet-link navbar-item');
-	// logout.href = '/logout';
-	// logout.innerHTML = 'Logout';
-	// navbar.appendChild(logout);
+	//replace register/login with logout
+	for (var i = 0; i < navbar.childNodes.length; i++) {
+		console.log("first line in for loop")
+		var c = navbar.childNodes[i];
+		if (c.innerHTML === 'Login' || c.innerHTML === 'Register')
+			c.style.display = 'none';
+	}
+	var logout = document.createElement('a');
+	logout.setAttribute('class', 'quiet-link navbar-item');
+	logout.href = '/logout';
+	logout.innerHTML = 'Logout';
+	navbar.appendChild(logout);
 }
 
 function register() {
