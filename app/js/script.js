@@ -15,13 +15,18 @@ function login() {
 		email: form.email.value,
 		password: form.password.value
 	};
+
 	fetch('/login', {
 		headers: { 'Content-Type': 'application/json' },
 		method: 'POST',
 		body: JSON.stringify(data)
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
-		res.json().then(loginSuccess);
+		if (document.getElementById("login-modal").classList.contains("in")) {
+			document.getElementById("modal-form-submit").click();
+		} else {
+			res.json().then(loginSuccess);
+		}
 	}).catch(errorHandler);
 }
 
@@ -29,8 +34,6 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
-	
-	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
 	loginInit(payload);
 }
 
@@ -38,7 +41,6 @@ function loginInit(info) {
 	var navbar = document.getElementById('navbar');
 
 	console.log("successfully logged in");
-	console.log("payload 2: " + info);
 	// greet
 	if (info.firstName || info.email) {
 		var greeting = document.createElement('div');
@@ -55,7 +57,6 @@ function loginInit(info) {
 
 	}
 
-	console.log("right before for loop")
 	//replace register/login with logout
 	var elem = document.getElementById('register');
     elem.parentNode.removeChild(elem);
@@ -67,6 +68,22 @@ function loginInit(info) {
 	logout.href = '/logout';
 	logout.innerHTML = 'Logout';
 	navbar.appendChild(logout);
+}
+
+// allows us to submit with enter key
+function submitOnEnterKey(submitFunction, targetForm) {
+    targetForm = targetForm || form;
+    var runOnKeydown = function(e) { if (e.keyCode === 13) submitFunction(); }
+    var children = targetForm.childNodes;
+    for (var i = 0; i < children.length; i++) {
+        var child = children[i];
+        if (child.getAttribute('class') === 'form-group') 
+            submitOnEnterKey(submitFunction, child);
+        var type = child.getAttribute('type');
+        if (type === 'text' || type === 'email' || type === 'password' ||
+                type === 'number' || type === 'phone')
+            child.onkeydown = runOnKeydown;
+    }
 }
 
 function register() {
