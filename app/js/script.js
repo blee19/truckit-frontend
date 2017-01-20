@@ -29,17 +29,18 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
-	console.log(payload);
+	
+	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
 	loginInit(payload);
 }
 
 function loginInit(info) {
 	var navbar = document.getElementById('navbar').childNodes[1];
+
 	console.log("successfully logged in");
-	console.log("payload: " + info);
+	console.log("payload 2: " + info);
 	// greet
 	if (info.firstName || info.email) {
-		console.log(info.firstName);
 		var greeting = document.createElement('div');
 		greeting.setAttribute('class', 'navbar-item');
 		greeting.innerHTML = 'Hello, ' + (info.firstName || info.email) + '!';
@@ -53,6 +54,7 @@ function loginInit(info) {
 		navbar.insertBefore(greeting, navbar.firstChild);
 
 	}
+
 	console.log("right before for loop")
 	//replace register/login with logout
 	var elem = document.getElementById('register');
@@ -68,7 +70,7 @@ function loginInit(info) {
 }
 
 function register() {
-	console.log("TESTT");
+	console.log("TEST");
 	var form = document.forms[0];
 	displayError('');
 	clearError(form.password);
@@ -471,7 +473,7 @@ function renderIndex(){
             console.log(activeTrucks);
             return res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
         }).catch(adminErrorHandler);
-    
+
     // var ul = dropdowns.createElement("ul");  // Create with DOM
     // ul.class = "list-group";
     // for(var i = 0; i<activeTrucks[0].length; i++){
