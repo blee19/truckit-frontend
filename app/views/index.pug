@@ -131,6 +131,8 @@ block content
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
+                                label.toggler(class="checkbox-inline hidden admin-view")
+                                    input(type="checkbox" data-toggle="toggle")
                           button.button.btn(class='col-md-3 .col-md-offset-3' id='truck._id' type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
           else
             each truck in trucks

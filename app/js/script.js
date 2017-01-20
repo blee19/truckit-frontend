@@ -29,8 +29,15 @@ function loginSuccess(res) {
 	if (modal) modal.style.display = '';
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	if(payload["isAdmin"]){
+		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
+			var userViewClass = (document.getElementsByClassName("user-view")[i]).classList;
+			userViewClass.add("hidden");
+			var adminViewClass = (document.getElementsByClassName("admin-view")[i]).classList;
+			adminViewClass.remove("hidden");
 
-	console.log('payload 1 PRE RELOAD BUT WHY IS IT RELOADING:', payload);
+		}
+	}
 	loginInit(payload);
 }
 
