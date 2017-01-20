@@ -126,15 +126,10 @@ function submitOnEnterKey(submitFunction, targetForm) {
 }
 
 function register() {
-	console.log("TEST");
 	var form = document.forms[0];
-	console.log("TEST2");
 	displayError('');
-	console.log("TEST3")
 	clearError(form.password);
-	console.log("TEST4")
 	clearError(form.repassword);
-	console.log("TEST5")
 	var data = getFormData(form);
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
