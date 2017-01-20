@@ -1,7 +1,7 @@
 var modal = document.getElementsByClassName('modal')[0];
 var jumbotron = document.getElementsByClassName('jumbotron');
 var form = document.forms[0];
-var activeTrucks = [];
+//var cart = {};
 
 //renderIndex();
 
@@ -23,12 +23,12 @@ function login() {
 	}).then(function(res) {
 		if (!res.ok) return errorHandler(res);
 		res.json().then(loginSuccess);
-		$("#login-modal").modal("hide");
 	}).catch(errorHandler);
 }
 
 function loginSuccess(res) {
-	if (modal) modal.style.display = '';
+	$("#login-modal").modal("hide");
+	$("#register-modal").modal("hide");
 	localStorage.token = res.token;
 	var payload = JSON.parse(atob(res.token.split('.')[1]));
 	if(payload["isAdmin"]){
@@ -494,19 +494,21 @@ function headers() {
 // Buy page
 // ==========================================================
 
-function buy(cart) {
+function buy() {
+    var c = sessionStorage.getItem('cart');
+    console.log(typeof c);
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
-		body: cart,
+		body: c,
 	}).then(buySuccess)
-		.catch(buyError);
+	.catch(buyError);
 }
 
 function buySuccess(res) {
+    $("#cart-modal").modal("hide");
+    $("#purchased-modal").modal();
 	if (!res.ok) return buyError(res);
-	alert('congrats on your purchase');
-	console.log('success!');
 }
 
 function buyError(err) {
@@ -552,7 +554,7 @@ function createCart(){
         //return modal.style.display = 'block';
     }
     var selected = [];
-    var totalPrice;
+    var totalPrice = 0;
     var truckId = event.target.id;
     var truck;
     var menus = document.getElementsByClassName(truckId+'menuItem');
@@ -571,21 +573,60 @@ function createCart(){
                     name: itemName,
                     quantity: +quant
                 });
-            totalPrice += itemPrice
+            totalPrice += (itemPrice)*(+quant);
         }
     }
-        var cart = {
+    var cart = {
             truck: truckId,
             purchasedItems: selected,
             paid: new Date,
-            totalPrice: totalPrice
-        };
+            totalPrice: +totalPrice
+    };
 
-    console.log(cart);
-    $("#cart-modal").modal();
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+
+    var data = sessionStorage.getItem('cart');
+    console.log("cart: " + data);
     //onlcik ord
-    document.getElementById('buy').onclick = buy(cart);
+    populateCartModal(data);
     }
+
+    function populateCartModal(cart) {
+    var cartModal = document.getElementById('cart-modal-header');
+    var cartData = JSON.parse(cart);
+    console.log(cartData["purchasedItems"]);
+    cartData["purchasedItems"].forEach(function(item) {
+        console.log("for each item:");
+        console.log(item);
+        var div = document.createElement('div');
+        div.setAttribute('class', 'item');
+            var quantity = document.createElement('span');
+            quantity.setAttribute('class', 'left');
+            quantity.innerHTML = item.quantity+' ';
+            div.appendChild(quantity);
+
+            var name = document.createElement('span');
+            name.setAttribute('class', 'left');
+            name.innerHTML = item.name+'.................';
+            div.appendChild(name);
+
+            var price = document.createElement('span');
+            price.setAttribute('class', 'right');
+            price.innerHTML = '$'+(item.price*item.quantity);
+            div.appendChild(price);
+
+        cartModal.appendChild(div);
+        var cartSubmit = document.getElementById('buy');
+        //cartSubmit.onclick = buy(cart);
+
+    });
+    var total= document.createElement('div');
+    total.setAttribute('class', 'center');
+    total.innerHTML = 'Total................$'+ cartData["totalPrice"];
+    cartModal.appendChild(total);
+
+    $("#cart-modal").modal();
+}
 
     //find truck where id = truck id
     //FETCH REQUEST TO GET TRUCK OBJECT to get menu
