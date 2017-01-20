@@ -3,6 +3,8 @@ var jumbotron = document.getElementsByClassName('jumbotron');
 var form = document.forms[0];
 var activeTrucks = [];
 
+//renderIndex();
+
 function login() {
 	var form = document.forms[1];
 	displayError('');
@@ -463,11 +465,13 @@ function hideModal() { modal.style.display = ''; }
 function renderIndex(){
     fetch('/getActiveTrucks', { headers: { 'x-access-token': localStorage.token } })
         .then(function(res) {
-            if (!res.ok) return
+            if (!res.ok) return;
                 //return adminErrorHandler(res, document.getElementById('items'));
             activeTrucks = JSON.parse(res);
-            res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
+            console.log(activeTrucks);
+            return res.json().then(function(trucks) { activeTrucks = trucks; }) //check what format trucks is in
         }).catch(adminErrorHandler);
+    
     // var ul = dropdowns.createElement("ul");  // Create with DOM
     // ul.class = "list-group";
     // for(var i = 0; i<activeTrucks[0].length; i++){
@@ -490,16 +494,17 @@ function createCart(){
     var truckId = event.target.id;
     console.log(activeTrucks);
     //find truck where id = truck id
+    //FETCH REQUEST TO GET TRUCK OBJECT to get menu
     var truck;
     for(var i=0; i<activeTrucks.length; i++){
-        console.log(activeTrucks[i]);
+        console.log("active: " + activeTrucks[i]);
         if(activeTrucks[i]._id === truckId){
             truck = activeTrucks[i];
             console.log(truck);
         }
     }
     for(var i=0; i<truck.menu.length; i++){
-        var quant = $('#'+truck.menu[i]._id+'quantity').val();
+        var quant = $('#'+truck.menu[i]._id).val();
         if ($('#'+quant).val() !== 0){
             selected.push({
                 item: {
