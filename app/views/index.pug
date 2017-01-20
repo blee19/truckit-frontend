@@ -98,7 +98,7 @@ block content
                             h4(class="modal-title" id="myModalLabel") Review Your Order!
                         div(class="modal-body")
                             div(class="row")
-                                button(type="submit" class="btn btn-success btn-block" onclick='buy(trucks)') Place Order
+                                button(type="submit" class="btn btn-success btn-block" id = 'buy') Place Order
 
 
     <!-- jumbotron-->
@@ -119,8 +119,11 @@ block content
                     div(id="collapseOne"+truck._id class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
                         div(class="panel-body")
                           ul.list-group
+                            -var c = 0
                             each item in truck.menu
-                              li.list-group-item.justify-content-between(id='menuItem')
+                              -var string = truck._id.toString()+'menuItem'
+                              -c++
+                              li.list-group-item.justify-content-between(class= string id = c)
                                 | #{item.name}
                                 | $#{item.price}
                                 .input-group.user-view
@@ -134,7 +137,7 @@ block content
                                             span.glyphicon.glyphicon-plus
                                 label.toggler(class="checkbox-inline hidden admin-view")
                                     input(type="checkbox" data-toggle="toggle")
-                          button.button.btn(class='col-md-3 .col-md-offset-3' id=truck._id type='button' onclick='createCart()' data-toggle="modal" data-target="#cart-modal") Order
+                          button.button.btn(class='col-md-3 .col-md-offset-3' id=truck._id type='button' onclick='createCart()' data-toggle="modal") Order
 
 
 

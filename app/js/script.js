@@ -459,15 +459,10 @@ function headers() {
 // ==========================================================
 
 function buy(cart) {
-	if (!localStorage.token)
-		return modal.style.display = 'block';
-	quantity = quantity || 1;
-	console.log(id);
-
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
-		body: JSON.stringify({ id: id, quantity: quantity })
+		body: cart,
 	}).then(buySuccess)
 		.catch(buyError);
 }
@@ -516,36 +511,43 @@ function renderRegister(){
 }
 
 function createCart(){
+    if (!localStorage.token){
+        return $("#login-modal").modal();
+        //return modal.style.display = 'block';
+    }
     var selected = [];
+    var totalPrice;
     var truckId = event.target.id;
     var truck;
-    var menu = document.getElementById('menuItem').innerText;
-    console.log(truckId);
-    // for(var i = 0; i<menu.length)
-        
-        console.log(menu);
-        var itemName = menu.split(' ')[0];
-        var itemPrice = +menu.split(' ')[1].slice(1).trim();
+    var menus = document.getElementsByClassName(truckId+'menuItem');
+    // console.log("menu: " +menus);
+    for(var i = 0; i<menus.length; i++){
+        console.log("menu: " +menus[i]);
+        //console.log(menus);
+        //if(menus[i].id===)
+        var itemName = menus[i].innerText.split(' ')[0];
+        var itemPrice = +menus[i].innerText.split(' ')[1].slice(1).trim();
         console.log('itemPrice: ' + itemPrice);
         var quant = $('#'+truckId+itemName).val();
-        if ($('#'+quant).val() !== 0){
-        selected.push({
-            item: {
-                price: itemPrice,
-                name: itemName,
-                quantity: quant
-                }
-            });
+        if (+quant !== 0){
+            selected.push({
+                    price: itemPrice,
+                    name: itemName,
+                    quantity: +quant
+                });
+            totalPrice += itemPrice
         }
-
+    }
         var cart = {
             truck: truckId,
             purchasedItems: selected,
-            paid: new Date
-            totalPrice: 
+            paid: new Date,
+            totalPrice: totalPrice
         }; 
     console.log(cart);
-    sendCart(cart);
+    $("#cart-modal").modal();
+    //onlcik ord
+    document.getElementById('buy').onclick = buy(cart);
     }
 
     //find truck where id = truck id
