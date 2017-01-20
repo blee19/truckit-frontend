@@ -60,8 +60,12 @@ router.get('/admin/getpending', (req, res, next) => {
     }).pipe(res);
 });
 
-router.get('/getActiveTrucks', (req, res, next) => {
-    request.post(config.apiUrl + '/trucks/').pipe(res);
-});
+// THIS NEEDS TO WORK AND DOESNT - maybe not returning anything?
+// router.get('/getActiveTrucks', (req, res, next) => {
+//     request.get(config.apiUrl + '/trucks', (err, response, body) => {
+//         if (!err && response.statusCode == 200)
+//             return res.json({trucks: JSON.parse(body)});
+//     });
+// });
 
 module.exports = router;
