@@ -111,6 +111,7 @@ block content
                     div(id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne")
                         div(class="panel-body")
                           ul.list-group
+                            console.log(window.atob(localStorage.token))
                             each item in truck.menu
                               li.list-group-item.justify-content-between
                                 | #{item.name}

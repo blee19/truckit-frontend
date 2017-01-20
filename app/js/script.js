@@ -512,7 +512,7 @@ $(document).on('click', '.btn-number', function (e) {
                 input.val(currentVal - 1).change();
             }
             if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
+                return;
             }
 
         } else if(type == 'plus') {
@@ -521,7 +521,7 @@ $(document).on('click', '.btn-number', function (e) {
                 input.val(currentVal + 1).change();
             }
             if(parseInt(input.val()) == input.attr('max')) {
-                $(this).attr('disabled', true);
+				return;
             }
 
         }
