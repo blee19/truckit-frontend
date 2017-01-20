@@ -137,10 +137,7 @@ function register() {
 	clearError(form.venmo);
 
 	var data = getFormData(form);
-
-	if(!validateEmail(form.email) && form.getElementById('email').getAttribute('value'){
-		document.getElementById('emailError2').classList.remove('hidden');
-	}
+	console.log((form.email).getAttribute('value'))
 
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
@@ -148,6 +145,13 @@ function register() {
 		error(form.repassword);
 	}
 	else var errorMessage = '';
+	var filledFields = checkRequired(form);
+	if(filledFields.lenth) {
+		filledFields.forEach(function(element) {
+		document.getElementById(element.getAttribute('missingError')).classList.add('hidden');
+		})
+	}
+
 	var emptyFields = checkRequired(form);
 	if (emptyFields.length) {
 		emptyFields.forEach(function(element) {
@@ -158,6 +162,11 @@ function register() {
 			document.getElementById(element.getAttribute('missingError')).classList.remove('hidden');
 		});
 	}
+	//
+	// if(!validateEmail(form.email)){
+	// 	//document.getElementById('emailError2').classList.remove('hidden');
+	// }
+
 	if (errorMessage)
 		return displayError(errorMessage.substr(6));
 
