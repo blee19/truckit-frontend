@@ -129,7 +129,7 @@ block content
                                         button.btn.btn-danger.btn-number(qid=item._id, type='button', data-type='minus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-minus
                                     -var s = truck._id + item.name
-                                    input.form-control.input-number(id=s, type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
+                                    input.form-control.input-number(id=s, bid=item._id type='text', name='quant[2]', value='0', min='0', max='100' width = "24")
                                     span.input-group-btn
                                         button.btn.btn-success.btn-number(qid=item._id, type='button', data-type='plus', data-field='quant[2]')
                                             span.glyphicon.glyphicon-plus
