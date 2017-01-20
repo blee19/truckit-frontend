@@ -498,9 +498,12 @@ $(document).on('click', '.btn-number', function (e) {
 	console.log("button was hit");
 	e.preventDefault();
 
+	itemName  = $(this).attr('qid');
     fieldName = $(this).attr('data-field');
     type      = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
+	console.log(itemName);
+    var input = $("input[id='"+itemName+"']");
+
     var currentVal = parseInt(input.val());
     if (!isNaN(currentVal)) {
         if(type == 'minus') {
@@ -568,4 +571,8 @@ $(document).on('keydown', '.input-number', function (e) {
         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }
-    });
+});
+
+$(document).on('click', "#testbtn", function() {
+console.log("test button things works");
+});
