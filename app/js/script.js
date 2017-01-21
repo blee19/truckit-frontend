@@ -86,9 +86,16 @@ function loginInit(info) {
 	var history = document.createElement('button');
 	history.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
 	history.innerHTML = 'History';
-	history.setAttribute('data-target','#history-modal')
-	history.setAttribute('data-toggle','modal')
+	history.setAttribute('data-target','#history-modal');
+	history.setAttribute('data-toggle','modal');
 	navbar.appendChild(history);
+
+	var editUser = document.createElement('button');
+	editUser.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
+	editUser.innerHTML = 'Edit Account';
+	editUser.setAttribute('data-target', '#editUser-modal');
+	editUser.setAttribute('data-toggle', 'modal');
+	navbar.appendChild(editUser);
 }
 
 function orderHistory() {
