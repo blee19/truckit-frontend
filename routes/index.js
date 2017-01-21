@@ -24,7 +24,7 @@ router.post('/buy', (req, res, next) => {
     if (!req.body) {
         return res.sendStatus(400);
     }
-    console.log('req.body:', req.body);
+    console.log('req.body.purchasedItems:', JSON.stringify(req.body.purchasedItems));
     request.post({
         url: config.apiUrl + '/orders',
         headers: { 'x-access-token': req.headers['x-access-token'] },
