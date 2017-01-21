@@ -30,7 +30,9 @@ function loginSuccess(res) {
 	$("#login-modal").modal("hide");
 	$("#register-modal").modal("hide");
 	localStorage.token = res.token;
-	var payload = JSON.parse(atob(res.token.split('.')[1]));
+	var x = atob(res.token.split('.')[1]);
+	console.log(x)
+	var payload = JSON.parse(x);
 	if(payload["isAdmin"]){
 		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
 			var userViewClass = (document.getElementsByClassName("user-view")[i]).classList;
@@ -84,9 +86,16 @@ function loginInit(info) {
 	var history = document.createElement('button');
 	history.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
 	history.innerHTML = 'History';
-	history.setAttribute('data-target','#history-modal')
-	history.setAttribute('data-toggle','modal')
+	history.setAttribute('data-target','#history-modal');
+	history.setAttribute('data-toggle','modal');
 	navbar.appendChild(history);
+
+	var editUser = document.createElement('button');
+	editUser.setAttribute('class', 'button btn btn-lg pull-right navbar-btn');
+	editUser.innerHTML = 'Edit Account';
+	editUser.setAttribute('data-target', '#editUser-modal');
+	editUser.setAttribute('data-toggle', 'modal');
+	navbar.appendChild(editUser);
 }
 
 function orderHistory() {
@@ -136,6 +145,10 @@ function register() {
 	clearError(form.venmo);
 
 	var data = getFormData(form);
+
+	if(!validateEmail(form.email) && form.getElementById('email').getAttribute('value'){
+		document.getElementById('emailError2').classList.remove('hidden');
+	}
 
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
