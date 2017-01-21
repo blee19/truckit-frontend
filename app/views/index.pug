@@ -34,8 +34,7 @@ block content
                                   div(class="form")
                                       label(for="email" class="control-label") Email*
                                       input(type="text" class="form-control" missingError="emailError" invalidError="emailError2" formattingError="emailError2" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
-                                      <span id="emailError" class="help-block hidden">You forgot your email</span>
-                                      <span id="emailError2" class="help-block hidden">Your email isn't properly formatted</span>
+                                      <span id="emailError" class="help-block hidden">You forgot your email</span><span id="emailError2" class="help-block hidden">Your email isn't properly formatted</span>
                                   div(class="form")
                                       label(for="password" class="control-label") Password*
                                       input(type="password" class="form-control" missingError="passwordError" id="password" name="password" value="" required="" title="Please enter your password")
@@ -43,7 +42,7 @@ block content
                                   div(class="form")
                                       label(for="repassword" class="control-label") Re-enter Password*
                                       input(type="password" class="form-control" missingError="repasswordError" id="repassword" name="repassword" value="" required="" title="Please re-enter your password")
-                                      <span id="repasswordError" class="help-block hidden">You forgot to retype your password</span>
+                                      <span id="repasswordError" class="help-block hidden">You forgot to retype your password</span><span id="passwordMatchError" class="help-block hidden">Your passwords don't match</span>
                                   div(class="form")
                                       label(for="phone" class="control-label") Phone Number*
                                       input(type="text" class="form-control" missingError="phoneError" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits")
