@@ -135,9 +135,20 @@ function submitOnEnterKey(submitFunction, targetForm) {
 function register() {
 	var form = document.forms[0];
 	displayError('');
+	clearError(form.firstName);
+	clearError(form.email);
 	clearError(form.password);
 	clearError(form.repassword);
+	clearError(form.phone);
+	clearError(form.phoneProvider);
+	clearError(form.venmo);
+
 	var data = getFormData(form);
+
+	if(!validateEmail(form.email) && form.getElementById('email').getAttribute('value'){
+		document.getElementById('emailError2').classList.remove('hidden');
+	}
+
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
 		error(form.password);
@@ -149,6 +160,9 @@ function register() {
 		emptyFields.forEach(function(element) {
 			error(element);
 			errorMessage += '<br />' + element.getAttribute('data-message');
+			console.log(element)
+			console.log(element.getAttribute('missingError'))
+			document.getElementById(element.getAttribute('missingError')).classList.remove('hidden');
 		});
 	}
 	if (errorMessage)
@@ -574,7 +588,7 @@ function createCart(){
             purchasedItems: selected,
             paid: new Date,
             totalPrice: +totalPrice
-    }; 
+    };
 
     sessionStorage.setItem('cart', JSON.stringify(cart));
 
@@ -755,3 +769,12 @@ $(document).on('keydown', '.input-number', function (e) {
 $(document).on('click', "#testbtn", function() {
 console.log("test button things works");
 });
+
+function validateEmail(mail)
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+  {
+    return (true)
+  }
+    return (false)
+}

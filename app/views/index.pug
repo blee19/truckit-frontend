@@ -21,39 +21,41 @@ block content
               div(class="modal-body")
                   div(class="row")
                           div(class="well")
+                              #js-error-message.error-message
                               form(id="registerForm")
                                   div(class="form")
-                                      label(for="firstName" class="control-label") First Name
-                                      input(type="text" class="form-control" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David")
-                                      <span class="help-block"></span>
+                                      label(for="firstName" class="control-label") First Name*
+                                      input(type="text" class="form-control" missingError="firstNameError" id="firstName" name="firstName" value="" required="" title="Please enter your first name" placeholder="David")
+                                      <span id="firstNameError" class="help-block hidden">You forgot to fill in your first name</span>
                                   div(class="form")
                                       label(for="lastName" class="control-label") Last Name
-                                      input(type="text" class="form-control" id="lastName" name="lastName" value="" required="" title="Please enter your last name" placeholder="Malan")
+                                      input(type="text" class="form-control" id="lastName" name="lastName" value="" title="Please enter your last name" placeholder="Malan")
                                       span(class="help-block")
                                   div(class="form")
-                                      label(for="email" class="control-label") Email
-                                      input(type="text" class="form-control" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
-                                      span(class="help-block")
+                                      label(for="email" class="control-label") Email*
+                                      input(type="text" class="form-control" missingError="emailError" invalidError="emailError2" formattingError="emailError2" id="email" name="email" value="" required="" title="Please enter you email" placeholder="cs50IsTakingOver@gmail.com")
+                                      <span id="emailError" class="help-block hidden">You forgot your email</span>
+                                      <span id="emailError2" class="help-block hidden">Your email isn't properly formatted</span>
                                   div(class="form")
-                                      label(for="password" class="control-label") Password
-                                      input(type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password")
-                                      span(class="help-block")
+                                      label(for="password" class="control-label") Password*
+                                      input(type="password" class="form-control" missingError="passwordError" id="password" name="password" value="" required="" title="Please enter your password")
+                                      <span id="passwordError" class="help-block hidden">You forgot your password</span>
                                   div(class="form")
-                                      label(for="repassword" class="control-label") Re-enter Password
-                                      input(type="password" class="form-control" id="repassword" name="repassword" value="" required="" title="Please re-enter your password")
-                                      span(class="help-block")
+                                      label(for="repassword" class="control-label") Re-enter Password*
+                                      input(type="password" class="form-control" missingError="repasswordError" id="repassword" name="repassword" value="" required="" title="Please re-enter your password")
+                                      <span id="repasswordError" class="help-block hidden">You forgot to retype your password</span>
                                   div(class="form")
-                                      label(for="phone" class="control-label") Phone Number
-                                      input(type="text" class="form-control" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits")
-                                      span(class="help-block")
+                                      label(for="phone" class="control-label") Phone Number*
+                                      input(type="text" class="form-control" missingError="phoneError" id="phone" name="phone" value="" required="" title="Please enter your phone number" placeholder="Please enter only digits")
+                                      <span id="phoneError" class="help-block hidden">You forgot your phone number</span>
                                   div(class="form")
-                                      label(for="phoneProvider" class="control-label") Your Phone Provider
-                                      input(type="text" class="form-control" id="phoneProvider" name="phoneProvider" value="" required="" title="Please enter your Phone Provider")
-                                      span(class="help-block")
+                                      label(for="phoneProvider" class="control-label") Your Phone Provider*
+                                      input(type="text" class="form-control" missingError="phoneProviderError" id="phoneProvider" name="phoneProvider" value="" required="" title="Please enter your Phone Provider")
+                                      <span id="phoneProviderError" class="help-block hidden">You forgot to add your Phone Provider</span>
                                   div(class="form")
-                                      label(for="venmo" class="control-label") Your Venmo name
-                                      input(type="text" class="form-control" id="venmo" name="venmo" value="" required="" title="Please enter your Phone Provider" placeholder="@david_j_malan")
-                                      span(class="help-block")
+                                      label(for="venmo" class="control-label") Your Venmo name*
+                                      input(type="text" class="form-control" missingError="venmoError" id="venmo" name="venmo" value="" required="" title="Please enter your Phone Provider" placeholder="@david_j_malan")
+                                      <span id="venmoError" class="help-block hidden">You forgot to add your venmo</span>
                                   div(class="form")
                                       span(class="help-block")
                                   div(class="checkbox")
