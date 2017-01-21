@@ -600,6 +600,7 @@ function createCart(){
     var cart = {
             truck: truckId,
             purchasedItems: selected,
+			purchasedItemsLength: selected.length,
             paid: new Date,
             totalPrice: +totalPrice
     };
