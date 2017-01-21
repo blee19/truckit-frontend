@@ -9,6 +9,7 @@ const config = require('./app/models/config');
 const routes = require('./routes/index');
 
 var app = express();
+app.use(favicon(__dirname + '/public/SampleLogo.ico'));
 app.locals.config = config;
 if (app.get('env') === 'development') app.locals.dev = true;
 
