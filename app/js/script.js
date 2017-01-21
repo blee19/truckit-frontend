@@ -127,7 +127,6 @@ function submitOnEnterKey(submitFunction, targetForm) {
 
 function register() {
 	var form = document.forms[0];
-	displayError('');
 	clearError(form.firstName);
 	clearError(form.email);
 	clearError(form.password);
@@ -137,28 +136,26 @@ function register() {
 	clearError(form.venmo);
 
 	var data = getFormData(form);
-	console.log((form.email).getAttribute('value'))
 
 	if (data.password !== form.repassword.value) {
 		var errorMessage = "<br />Passwords don't match";
 		error(form.password);
 		error(form.repassword);
+		document.getElementById('passwordMatchError').classList.remove('hidden');
+
 	}
 	else var errorMessage = '';
+
 	var filledFields = checkRequired(form);
-	if(filledFields.lenth) {
+	if (filledFields.lenth) {
 		filledFields.forEach(function(element) {
-		document.getElementById(element.getAttribute('missingError')).classList.add('hidden');
+			document.getElementById(element.getAttribute('missingError')).classList.add('hidden');
 		})
 	}
 
 	var emptyFields = checkRequired(form);
 	if (emptyFields.length) {
 		emptyFields.forEach(function(element) {
-			error(element);
-			errorMessage += '<br />' + element.getAttribute('data-message');
-			console.log(element)
-			console.log(element.getAttribute('missingError'))
 			document.getElementById(element.getAttribute('missingError')).classList.remove('hidden');
 		});
 	}
