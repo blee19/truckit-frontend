@@ -174,15 +174,11 @@ function register() {
 	}
 	else var errorMessage = '';
 
-	// var alertText = document.getElementsByClassName('help-block')
-	// for(var i = )
-	var filledFields = checkRequired(form);
-	if (filledFields.lenth) {
-		filledFields.forEach(function(element) {
-			console.log(element)
-			document.getElementById(element.getAttribute('missingError')).classList.add('hidden');
-		})
+	var alertText = document.getElementsByClassName('help-block');
+	for(var i = 0; i < alertText.lenght; i++) {
+		alertText[i].classList.add('hidden');
 	}
+
 
 	var emptyFields = checkRequired(form);
 	if (emptyFields.length) {
