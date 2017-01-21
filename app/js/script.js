@@ -533,7 +533,8 @@ function headers() {
 
 function buy() {
     var c = sessionStorage.getItem('cart');
-    console.log(typeof c);
+
+    console.log('this is c:', c);
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
@@ -623,15 +624,19 @@ function createCart(){
     sessionStorage.setItem('cart', JSON.stringify(cart));
 
     var data = sessionStorage.getItem('cart');
-    console.log("cart: " + data);
+    console.log("data in createcart: " + data);
     //onlcik ord
     populateCartModal(data);
     }
 
-    function populateCartModal(cart) {
+function populateCartModal(cart) {
+
+	// console.log("data json.stringify: " + JSON.stringify(cart));
+	console.log("data json.parse: " + JSON.parse(cart));
+
     var cartModal = document.getElementById('cart-modal-header');
     var cartData = JSON.parse(cart);
-    console.log(cartData["purchasedItems"]);
+    console.log('cartdata purchased items:', cartData["purchasedItems"]);
     cartData["purchasedItems"].forEach(function(item) {
         console.log("for each item:");
         console.log(item);
@@ -654,7 +659,7 @@ function createCart(){
 
         cartModal.appendChild(div);
         var cartSubmit = document.getElementById('buy');
-        //cartSubmit.onclick = buy(cart);
+        cartSubmit.onclick = buy(cart);
 
     });
     var total= document.createElement('div');
