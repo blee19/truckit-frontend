@@ -146,7 +146,7 @@ function register() {
 
 	var data = getFormData(form);
 
-	if(!validateEmail(form.email) && form.getElementById('email').getAttribute('value'){
+	if(!validateEmail(form.email) && form.getElementById('email').getAttribute('value')){
 		document.getElementById('emailError2').classList.remove('hidden');
 	}
 
