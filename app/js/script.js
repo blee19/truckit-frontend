@@ -31,7 +31,6 @@ function loginSuccess(res) {
 	$("#register-modal").modal("hide");
 	localStorage.token = res.token;
 	var x = atob(res.token.split('.')[1]);
-	console.log(x)
 	var payload = JSON.parse(x);
 	if(payload["isAdmin"]){
 		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
@@ -45,9 +44,11 @@ function loginSuccess(res) {
 	loginInit(payload);
 }
 
+
+
+
 function loginInit(info) {
 	var navbar = document.getElementById('navbar');
-	console.log("successfully logged in");
 	// greet
 	if (info.firstName || info.email) {
 		var greeting = document.createElement('navbar-left');
@@ -96,7 +97,22 @@ function loginInit(info) {
 	editUser.setAttribute('data-target', '#editUser-modal');
 	editUser.setAttribute('data-toggle', 'modal');
 	navbar.appendChild(editUser);
+
+
+	console.log("adminView is run");
+	var x = atob((localStorage.token).split('.')[1]);
+	var payload = JSON.parse(x)
+	if(payload["isAdmin"]){
+		console.log("isAdmin is returning true")
+		for(var i = 0; i < document.getElementsByClassName("user-view").length; i++){
+			var userViewClass = (document.getElementsByClassName("user-view")[i]).classList;
+			userViewClass.add("hidden");
+			var adminViewClass = (document.getElementsByClassName("admin-view")[i]).classList;
+			adminViewClass.remove("hidden");
+			}
+		}
 }
+
 
 function orderHistory() {
 	fetch('/history', {
@@ -145,8 +161,7 @@ function register() {
 	clearError(form.venmo);
 
 	var data = getFormData(form);
-
-	if(!validateEmail(form.email) && form.getElementById('email').getAttribute('value')){
+	if(!validateEmail(form.email) && document.getElementById('email').value){
 		document.getElementById('emailError2').classList.remove('hidden');
 	}
 
@@ -159,9 +174,12 @@ function register() {
 	}
 	else var errorMessage = '';
 
+	// var alertText = document.getElementsByClassName('help-block')
+	// for(var i = )
 	var filledFields = checkRequired(form);
 	if (filledFields.lenth) {
 		filledFields.forEach(function(element) {
+			console.log(element)
 			document.getElementById(element.getAttribute('missingError')).classList.add('hidden');
 		})
 	}
@@ -515,7 +533,8 @@ function headers() {
 
 function buy() {
     var c = sessionStorage.getItem('cart');
-    console.log(typeof c);
+
+    console.log('this is c:', c);
 	fetch('/buy', {
 		method: 'POST',
 		headers: headers(),
@@ -605,15 +624,19 @@ function createCart(){
     sessionStorage.setItem('cart', JSON.stringify(cart));
 
     var data = sessionStorage.getItem('cart');
-    console.log("cart: " + data);
+    console.log("data in createcart: " + data);
     //onlcik ord
     populateCartModal(data);
     }
 
-    function populateCartModal(cart) {
+function populateCartModal(cart) {
+
+	// console.log("data json.stringify: " + JSON.stringify(cart));
+	console.log("data json.parse: " + JSON.parse(cart));
+
     var cartModal = document.getElementById('cart-modal-header');
     var cartData = JSON.parse(cart);
-    console.log(cartData["purchasedItems"]);
+    console.log('cartdata purchased items:', cartData["purchasedItems"]);
     cartData["purchasedItems"].forEach(function(item) {
         console.log("for each item:");
         console.log(item);
@@ -636,7 +659,7 @@ function createCart(){
 
         cartModal.appendChild(div);
         var cartSubmit = document.getElementById('buy');
-        //cartSubmit.onclick = buy(cart);
+        cartSubmit.onclick = buy(cart);
 
     });
     var total= document.createElement('div');
